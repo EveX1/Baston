@@ -14,23 +14,31 @@ function clamp(x, y, z) {
 }
 
 Perso.prototype.setAttributes = function () {
-    var points = document.querySelector('#pointsCara').innerHTML;
-    var str = document.querySelector('#str').value;
-    var end = document.querySelector('#end').value;
-    var agi = document.querySelector('#agi').value;
+    var points = document.querySelector('#pointsCara').innerText;
+    var str = document.querySelector('#str');
+    var end = document.querySelector('#end');
+    var agi = document.querySelector('#agi');
 
-    points = pointsBase+3-str-end-agi;
+    input = document.createElement('input');
+    input.setAttribute("min", 1);
+    input.setAttribute("type", "number");
+    inputStr = input.setAttribute("onclick", "setAttributes(str.value)")
+    inputEnd = input.setAttribute("onclick", "setAttributes(end.value)")
+    inputAgi = input.setAttribute("onclick", "setAttributes(agi.value)")
+
+
+    points = this.pointsBase+3-str.value-end.value-agi.value;
 
     if (points<=0)
     {
-        document.querySelector('#str').setAttribute("max", str);
-        document.querySelector('#end').setAttribute("max", end);
-        document.querySelector('#agi').setAttribute("max", agi);
+        str.setAttribute("max", str.value);
+        end.setAttribute("max", end.value);
+        agi.setAttribute("max", agi.value);
     } else {
-        document.querySelector('#str').setAttribute("max",clamp(str+points, 10, 0));
-        document.querySelector('#end').setAttribute("max", clamp(end+points, 10, 0));
-        document.querySelector('#agi').setAttribute("max", clamp(agi+points, 10, 0));
+        str.setAttribute("max",clamp(str.value+points, 10, 0));
+        end.setAttribute("max", clamp(end.value+points, 10, 0));
+        agi.setAttribute("max", clamp(agi.value+points, 10, 0));
     }
-    document.querySelector('#pointsCara').innerHTML = points;
+    document.querySelector('#pointsCara').innerText = points;
 
 }
