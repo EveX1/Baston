@@ -7,10 +7,10 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-        <form id="creation" method="get" target="?" name="creation" onsubmit="new Perso()" >
+        <form id="creation" method="get" target="?" name="creation">
             <fieldset>
                 <legend>Création de personnage</legend>
-                <label>Nom du personnage: </label><input id="name" type="text" name="Nom" /><br/>
+                <label>Nom du personnage: </label><input id="name" type="text" name="Nom" placeholder="Nom du perso ..."/><br/>
                 <br/>
                 <fieldset>
                     <legend>Caractéristiques</legend>
@@ -29,6 +29,7 @@
                 </fieldset>
             </fieldset>
         </form>
-        <script src="function.js"></script>
+        <script src="./js/Perso.js"></script>
+        <script src="./js/script.js"></script>
     </body>
 </html>
