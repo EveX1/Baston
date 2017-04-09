@@ -15,37 +15,41 @@ function Perso(name) {
     this.pointsBase = 15;
 
 }
-
+// encadrer une value entre un min et un max
 function clamp(value, min, max) {
     return Math.max(Math.min(value, min), max);
 }
 
+// random un nombre entre min et max
 function randomize(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// déterminer l'initiative (provisoire)
 Perso.prototype.init = function () {
-    var init = Math.floor((Math.random() * 10) + 1);
+    var init = randomize(0, 10)
     return init;
 }
 
+// déterminer si le perso touche et appliquer les dégâts
 Perso.prototype.attack = function (target) {
     var hit = Math.floor((Math.random() * 100) + 1) - target.esq;
     if (hit >= 0) {
         var dmg = this.dmgDone(target);
-        this.victory(target);
         return [hit, dmg];
     } else {
-        return ["Vous avez raté " + target.name, 0];
+        return [this.name + " a raté " + target.name, 0];
     }
 }
 
+// déterminer les dégâts infligés et les soustraire du pool d'HP de la cible
 Perso.prototype.dmgDone = function (target) {
     var dmg = randomize(this.str, this.str * 2);
     target.HP -= dmg
     return dmg;
 }
 
+// fonction de condition de victoire intégrée à l'attaque (provisoire)
 Perso.prototype.victory = function (target) {
     if (target.HP <= 0) {
         console.log(target.name + " est mort(e), " + this.name + " a gagné !")
