@@ -1,11 +1,11 @@
-var alice = new Perso('Alice');
-var bob = new Perso('Bob');
+var alice = new Joueur('Alice');
+var bob = new Monstre('Bob', 3, 3, 3, 1, 50);
 
 // tant que la cible a des PV
 while (bob.HP > 0) {
     var initAlice = alice.init();
-    var initBob = bob.init();
-    console.log('Alice a une initiative de ' + initAlice + ' et Bob de '+ initBob );
+    var initBob = bob.init;
+    console.log(alice.name + ' a une initiative de ' + initAlice + ' et ' + bob.name + ' de '+ initBob );
     // vérifie si l'initiative du perso est suffisante pour attaquer
     if (initAlice > initBob) {
         console.log('Il reste '+ bob.HP + ' PV à Bob');
