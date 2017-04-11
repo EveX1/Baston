@@ -1,11 +1,11 @@
-function Perso(name) {
+function Perso(name, str, end, agi, esq, hp) {
     this.name = name;
 
-    this.str = 0;
-    this.end = 0;
-    this.agi = 0;
-    this.esq = this.agi * 5;
-    this.HP = 100 + this.end * 5;
+    this.str = str;
+    this.end = end;
+    this.agi = agi;
+    this.esq = esq;
+    this.hp = hp;
 
 }
 
@@ -31,9 +31,9 @@ Perso.prototype.attack = function (target) {
     }
 }
 
-// déterminer les dégâts infligés et les soustraire du pool d'HP de la cible
+// déterminer les dégâts infligés et les soustraire du pool d'hp de la cible
 Perso.prototype.dmgDone = function (target) {
     var dmg = randomize(this.str, this.str * 2);
-    target.HP -= dmg;
+    target.hp -= dmg;
     return dmg;
 }

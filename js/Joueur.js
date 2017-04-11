@@ -1,18 +1,13 @@
-function Joueur(name) {
-    Perso.call(this, name);
-    console.log(this.name);
-    this.str = 6;
-    this.end = 6;
-    this.agi = 6;
+function Joueur(name, str, end, agi) {
+    Perso.call(this, name, str, end, agi);
     // this.points = document.querySelector('#attPoints').innerText;
     // this.name = document.querySelector('#name').value;
     // this.str = document.querySelector('#str').value;
     // this.end = document.querySelector('#end').value;
     // this.agi = document.querySelector('#agi').value;
     this.esq = this.agi * 5;
-    this.HP = 100 + this.end * 5;
+    this.hp = 100 + this.end * 5;
     this.pointsBase = 15;
-
 }
 
 Joueur.prototype = Object.create(Perso.prototype);
@@ -25,19 +20,19 @@ function clamp(value, min, max) {
 
 // fonction de condition de victoire intégrée à l'attaque (provisoire)
 Perso.prototype.victory = function (target) {
-    if (target.HP <= 0) {
-        console.log(target.name + " est mort(e), " + this.name + " a gagné !")
+    if (target.hp <= 0) {
+        console.log(target.name + " est mort(e), " + this.name + " a gagné !");
     }
-}
+};
 
 
 Perso.prototype.createForm = function () {
     input = document.createElement('input');
     input.setAttribute("type", "number");
     input.setAttribute("min", 1);
-    inputStr = input.setAttribute("onclick", "setAttributes(str.value)")
-    inputEnd = input.setAttribute("onclick", "setAttributes(end.value)")
-    inputAgi = input.setAttribute("onclick", "setAttributes(agi.value)")
+    inputStr = input.setAttribute("onclick", "setAttributes(str.value)");
+    inputEnd = input.setAttribute("onclick", "setAttributes(end.value)");
+    inputAgi = input.setAttribute("onclick", "setAttributes(agi.value)");
     console.log(inputStr);
 
     // document.querySelector('#str').appendChild(inputStr);
