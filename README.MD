@@ -8,12 +8,12 @@ v0.2
 
 To Do
     [   
-        héritage Charac -> Player,
-        héritage Charac -> Monster,
-        XP,
-        Armes,
-        Armures,
-        Salles,
-        loot Monsters,
-        loot Salles,
+       -[x] héritage Charac -> Player,
+       -[x] héritage Charac -> Monster,
+       -[ ] XP,
+       -[ ] Armes,
+       -[ ] Armures,
+       -[ ] Salles,
+       -[ ] loot Monsters,
+       -[ ] loot Salles,
     ]
