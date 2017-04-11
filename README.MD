@@ -1,16 +1,19 @@
 Petit projet javascript pour mettre en application les cours
 
 v0.1
-Classe Perso fonctionnelle.
+    Classe Charac fonctionnelle.
+v0.2
+    Héritage complet
+    Player & Monster
 
 To Do
     [   
-        héritage Perso -> Joueur,
-        héritage Perso -> Monstre,
+        héritage Charac -> Player,
+        héritage Charac -> Monster,
         XP,
         Armes,
         Armures,
         Salles,
-        loot Monstres,
+        loot Monsters,
         loot Salles,
     ]

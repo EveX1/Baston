@@ -1,32 +1,41 @@
-var alice = new Joueur('Alice', 6, 6, 6);
-var bob = new Monstre('Bob', 3, 3, 3, 1, 5, 50);
+var player = new Player('Alice', 6, 6, 6);
+var monster = new Monster('Bob', 10, 10, 10, 8, 5, 50);
 
-console.log('Bob a ' + bob.hp + ' PV');
+console.log('Bob a ' + monster.hp + ' PV');
 console.log('Bonne chance !');
-// tant que la cible a des PV
-while (bob.hp > 0) {
-    var initAlice = alice.init();
-    var initBob = bob.init;
+// tant que les persos ont des PV
+while (monster.hp > 0 && player.hp > 0) {
+    var initPlayer = player.init();
+    var initMonster = monster.init;
 
-    console.log(alice.name + ' a une initiative de ' + initAlice + ' et ' + bob.name + ' de '+ initBob );
+    console.log(player.name + ' a une initiative de ' + initPlayer + ' et ' + monster.name + ' de ' + initMonster);
     // vérifie si l'initiative du perso est suffisante pour attaquer
-    if (initAlice > initBob) {
-        var result = alice.attack(bob);
+    if (initPlayer > initMonster) {
+        var result = player.attack(monster);
         var hit = result[0];
         var dmg = result[1];
-        
+
         // vérifie si hit est un nombre
         if (!isNaN(hit)) {
-            console.log('Alice à touché ' + bob.name + ' avec ' + hit + ' de précision');
-            console.log('Alice a infligé ' + dmg +' points de dégats à ' + bob.name);
-            console.log('Il reste '+ bob.hp + ' PV à Bob');
+            player.log(monster);
         } else {
             console.log(hit);
         }
-        
+        player.victory(monster);
+
+        // sinon le monstre attaque
     } else {
-        console.log('Trop lent !');
+        var result = monster.attack(player);
+        var hit = result[0];
+        var dmg = result[1];
+
+        // vérifie si hit est un nombre
+        if (!isNaN(hit)) {
+            monster.log(player);
+        } else {
+            console.log(hit);
+        }
+        monster.victory(player);
     }
 
 }
-alice.victory(bob);

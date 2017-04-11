@@ -1,5 +1,5 @@
-function Joueur(name, str, end, agi) {
-    Perso.call(this, name, str, end, agi);
+function Player(name, str, end, agi) {
+    Charac.call(this, name, str, end, agi);
     // this.points = document.querySelector('#attPoints').innerText;
     // this.name = document.querySelector('#name').value;
     // this.str = document.querySelector('#str').value;
@@ -10,23 +10,16 @@ function Joueur(name, str, end, agi) {
     this.pointsBase = 15;
 }
 
-Joueur.prototype = Object.create(Perso.prototype);
-Joueur.prototype.conscructor = Joueur;
+Player.prototype = Object.create(Charac.prototype);
+Player.prototype.conscructor = Player;
 
 // encadrer une value entre un min et un max
 function clamp(value, min, max) {
     return Math.max(Math.min(value, min), max);
 }
 
-// fonction de condition de victoire intégrée à l'attaque (provisoire)
-Perso.prototype.victory = function (target) {
-    if (target.hp <= 0) {
-        console.log(target.name + " est mort(e), " + this.name + " a gagné !");
-    }
-};
 
-
-Perso.prototype.createForm = function () {
+Charac.prototype.createForm = function() {
     input = document.createElement('input');
     input.setAttribute("type", "number");
     input.setAttribute("min", 1);
@@ -38,8 +31,8 @@ Perso.prototype.createForm = function () {
     // document.querySelector('#str').appendChild(inputStr);
 }
 
-Perso.prototype.setAttributes = function () {
-    
+Charac.prototype.setAttributes = function() {
+
     var points = this.pointsBase + 3 - str.value - end.value - agi.value;
     var str = document.querySelector('#str');
     var end = document.querySelector('#end');

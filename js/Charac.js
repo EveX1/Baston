@@ -1,4 +1,4 @@
-function Perso(name, str, end, agi, esq, hp) {
+function Charac(name, str, end, agi, esq, hp) {
     this.name = name;
 
     this.str = str;
@@ -15,13 +15,13 @@ function randomize(min, max) {
 }
 
 // déterminer l'initiative (provisoire)
-Perso.prototype.init = function () {
+Charac.prototype.init = function() {
     var init = randomize(0, 10)
     return init;
 }
 
 // déterminer si le perso touche et appliquer les dégâts
-Perso.prototype.attack = function (target) {
+Charac.prototype.attack = function(target) {
     var hit = Math.floor((Math.random() * 100) + 1) - target.esq;
     if (hit >= 0) {
         var dmg = this.dmgDone(target);
@@ -32,8 +32,21 @@ Perso.prototype.attack = function (target) {
 }
 
 // déterminer les dégâts infligés et les soustraire du pool d'hp de la cible
-Perso.prototype.dmgDone = function (target) {
+Charac.prototype.dmgDone = function(target) {
     var dmg = randomize(this.str, this.str * 2);
     target.hp -= dmg;
     return dmg;
 }
+
+Charac.prototype.log = function(target) {
+    console.log(this.name + ' à touché ' + target.name + ' avec ' + hit + ' de précision');
+    console.log(this.name + ' a infligé ' + dmg + ' points de dégats à ' + target.name);
+    console.log('Il reste ' + target.hp + ' PV à ' + target.name);
+}
+
+// fonction de condition de victoire intégrée à l'attaque (provisoire)
+Charac.prototype.victory = function(target) {
+    if (target.hp <= 0) {
+        console.warn(target.name + " est mort(e), " + this.name + " a gagné !");
+    }
+};
