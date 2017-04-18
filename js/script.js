@@ -1,30 +1,50 @@
-var alice = new Perso('Alice');
-var bob = new Perso('Bob');
+var player = new Player('Alice', 6, 6, 6);
+var monster = new Monster('Bob', 3, 3, 3, 2, 5, 50, 32, 3);
 
-// tant que la cible a des PV
-while (bob.HP > 0) {
-    var initAlice = alice.init();
-    var initBob = bob.init();
-    console.log('Alice a une initiative de ' + initAlice + ' et Bob de '+ initBob );
+console.log('Bob est de niveau ' + monster.lvl);
+console.log('Bob a ' + monster.hp + ' PV');
+console.log('Bonne chance !');
+// tant que les persos ont des PV
+console.log(monster.hp);
+console.log(player.hp);
+while (monster.hp > 0 && player.hp > 0) {
+    console.log('Test');
+    var initPlayer = player.init();
+    var initMonster = monster.init;
+
+    console.log(player.name + ' a une initiative de ' + initPlayer + ' et ' + monster.name + ' de ' + initMonster);
     // vérifie si l'initiative du perso est suffisante pour attaquer
-    if (initAlice > initBob) {
-        console.log('Il reste '+ bob.HP + ' PV à Bob');
-        var result = alice.attack(bob);
+    if (initPlayer > initMonster) {
+        var result = player.attack(monster);
         var hit = result[0];
         var dmg = result[1];
-        
+
         // vérifie si hit est un nombre
         if (!isNaN(hit)) {
-            console.log('Alice à touché ' + bob.name + ' avec ' + hit + ' de précision');
-            console.log('Alice a infligé ' + dmg +' points de dégats à ' + bob.name);
-            console.log('Il reste '+ bob.HP + ' PV à Bob');
+            player.log(monster);
         } else {
             console.log(hit);
         }
-        
+        // player.victory(monster);
+
+        // sinon le monstre attaque
     } else {
-        console.log('Trop lent !');
+        var result = monster.attack(player);
+        var hit = result[0];
+        var dmg = result[1];
+
+        // vérifie si hit est un nombre
+        if (!isNaN(hit)) {
+            monster.log(player);
+        } else {
+            console.log(hit);
+        }
+        // monster.victory(player);
     }
 
 }
-alice.victory(bob);
+
+player.lvlup(monster.xp)
+console.log(player.name + ' a gagné ' + player.xp + ' XP');
+console.log(player.name + ' est niveau ' + player.lvl);
+console.log(player.name + ' a ' + player.xp + '/' + player.xplvl + 'XP');
