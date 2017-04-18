@@ -8,7 +8,7 @@ function Player(name, str, end, agi) {
     this.esq = this.agi * 5;
     this.xp = 0;
     this.lvl = 1;
-    this.xpLvl = this.lvl * 10;
+    this.xpLvl = 10;
     this.hp = 100 + this.end * (5 + (this.lvl - 1));
     this.pointsBase = 15;
 }
@@ -26,10 +26,15 @@ Charac.prototype.lvlUp = function(rewardXp) {
     this.xp += rewardXp;
     // Tant que l'XP gagnée fait monter d'un niveau
     while (this.xp >= this.xpLvl) {
+        // on monte d'un niveau
         this.lvl++;
-        this.xpLvl = this.lvl * 10;
+        // on augmente le maximum d'XP nécessaire au passage du niveau suivant
+        this.xpLvl = Math.round(Math.pow(this.lvl*8, 1.1));
+        console.log(this.xpLvl);
+        // on recalcule les PV max (basés sur le niveau)
         this.hp = 100 + this.end * (5 + (this.lvl - 1));
         console.log('Vous avez gagné un niveau');
+        console.log('Vous êtes de niveau ' + this.lvl);
     }
 }
 
