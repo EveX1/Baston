@@ -1,10 +1,11 @@
-function Player(name, str, end, agi, options) {
-    Charac.call(this, name, str, end, agi, options);
+function Player(name, str, end, agi) {
+    Charac.call(this, name, str, end, agi);
     // this.points = document.querySelector('#attPoints').innerText;
     // this.name = document.querySelector('#name').value;
     // this.str = document.querySelector('#str').value;
     // this.end = document.querySelector('#end').value;
     // this.agi = document.querySelector('#agi').value;
+    this.esq = this.agi * 5;
     this.xp = 0;
     this.lvl = 1;
     this.xpLvl = this.lvl * 10;
