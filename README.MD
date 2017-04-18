@@ -6,7 +6,7 @@ v0.2
     Héritage complet  
     Player & Monster  
 v0.3  
-    XP
+    XP et gain de niveau
 
 To Do
     [   

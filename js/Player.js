@@ -1,11 +1,10 @@
-function Player(name, str, end, agi) {
-    Charac.call(this, name, str, end, agi);
+function Player(name, str, end, agi, options) {
+    Charac.call(this, name, str, end, agi, options);
     // this.points = document.querySelector('#attPoints').innerText;
     // this.name = document.querySelector('#name').value;
     // this.str = document.querySelector('#str').value;
     // this.end = document.querySelector('#end').value;
     // this.agi = document.querySelector('#agi').value;
-    this.esq = this.agi * 5;
     this.xp = 0;
     this.lvl = 1;
     this.xpLvl = this.lvl * 10;
@@ -20,7 +19,6 @@ Player.prototype.conscructor = Player;
 function clamp(value, min, max) {
     return Math.max(Math.min(value, min), max);
 }
-
 
 Charac.prototype.lvlup = function(rewardXp) {
     this.xp += rewardXp;
