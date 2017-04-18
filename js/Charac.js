@@ -1,12 +1,14 @@
-function Charac(name, str, end, agi, esq, hp, xp, lvl) {
+function Charac(name, str, end, agi, lvl, options) {
     this.name = name;
     this.str = str;
     this.end = end;
     this.agi = agi;
-    this.esq = esq;
-    this.hp = hp;
-    this.xp = xp;
     this.lvl = lvl;
+    this.options = Object.assign({
+        esq: this.agi * 5,
+        hp: 100 + this.end * (5 + (this.lvl - 1)),
+        xpValue: lvl ^ 2
+    }, options);
 
 }
 

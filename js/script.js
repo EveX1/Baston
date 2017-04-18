@@ -1,6 +1,8 @@
 var player = new Player('Alice', 6, 6, 6);
-var monster = new Monster('Bob', 3, 3, 3, 2, 5, 50, 32, 3);
+var monster = new Monster('Bob', 3, 3, 3, 2, { esq: 5, hp: 50, xpValue: 32 });
+var charac = new Charac('Char', 1, 1, 1, 1, { esq: 5 });
 
+console.log(charac.esq);
 console.log('Bob est de niveau ' + monster.lvl);
 console.log('Bob a ' + monster.hp + ' PV');
 console.log('Bonne chance !');
@@ -44,7 +46,7 @@ while (monster.hp > 0 && player.hp > 0) {
 
 }
 
-player.lvlup(monster.xp)
+player.lvlUp(monster.xpValue)
 console.log(player.name + ' a gagné ' + player.xp + ' XP');
 console.log(player.name + ' est niveau ' + player.lvl);
-console.log(player.name + ' a ' + player.xp + '/' + player.xplvl + 'XP');
+console.log(player.name + ' a ' + player.xp + '/' + player.xpLvl + 'XP');

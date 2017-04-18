@@ -1,5 +1,5 @@
-function Monster(name, str, end, agi, initM, esq, hp, xp, lvl) {
-    Charac.call(this, name, str, end, agi, esq, hp, xp, lvl);
+function Monster(name, str, end, agi, lvl, initM, options) {
+    Charac.call(this, name, str, end, agi, lvl, options);
     this.init = initM;
 }
 
