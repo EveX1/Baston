@@ -1,7 +1,6 @@
-function Monster(name, str, end, agi, initM, esq, hp) {
-    Charac.call(this, name, str, end, agi, esq, hp);
+function Monster(name, str, end, agi, initM, esq, hp, xp, lvl) {
+    Charac.call(this, name, str, end, agi, esq, hp, xp, lvl);
     this.init = initM;
-    console.log(this.name);
 }
 
 Monster.prototype = Object.create(Charac.prototype);

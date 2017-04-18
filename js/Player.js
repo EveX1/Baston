@@ -6,7 +6,10 @@ function Player(name, str, end, agi) {
     // this.end = document.querySelector('#end').value;
     // this.agi = document.querySelector('#agi').value;
     this.esq = this.agi * 5;
-    this.hp = 100 + this.end * 5;
+    this.xp = 0;
+    this.lvl = 1;
+    this.xplvl = this.lvl * 10;
+    this.hp = 100 + this.end * (5 + (this.lvl - 1));
     this.pointsBase = 15;
 }
 
@@ -18,6 +21,16 @@ function clamp(value, min, max) {
     return Math.max(Math.min(value, min), max);
 }
 
+
+Charac.prototype.lvlup = function(rewardxp) {
+    this.xp += rewardxp;
+    while (this.xp >= this.xplvl) {
+        this.lvl++;
+        this.xplvl = this.lvl * 10;
+        this.hp = 100 + this.end * (5 + (this.lvl - 1));
+        console.log('Vous avez gagné un niveau');
+    }
+}
 
 Charac.prototype.createForm = function() {
     input = document.createElement('input');

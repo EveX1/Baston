@@ -10,7 +10,7 @@ To Do
     [   
        -[x] héritage Charac -> Player  
        -[x] héritage Charac -> Monster  
-       -[ ] XP  
+       -[x] XP  
        -[ ] Armes  
        -[ ] Armures  
        -[ ] Salles  

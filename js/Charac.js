@@ -1,11 +1,12 @@
-function Charac(name, str, end, agi, esq, hp) {
+function Charac(name, str, end, agi, esq, hp, xp, lvl) {
     this.name = name;
-
     this.str = str;
     this.end = end;
     this.agi = agi;
     this.esq = esq;
     this.hp = hp;
+    this.xp = xp;
+    this.lvl = lvl;
 
 }
 
@@ -24,7 +25,12 @@ Charac.prototype.init = function() {
 Charac.prototype.attack = function(target) {
     var hit = Math.floor((Math.random() * 100) + 1) - target.esq;
     if (hit >= 0) {
-        var dmg = this.dmgDone(target);
+        if (hit >= 90) {
+            var dmg = this.dmgDone(target) * 2;
+            console.warn("Coup critique !");
+        } else {
+            var dmg = this.dmgDone(target);
+        }
         return [hit, dmg];
     } else {
         return [this.name + " a raté " + target.name, 0];
@@ -41,7 +47,11 @@ Charac.prototype.dmgDone = function(target) {
 Charac.prototype.log = function(target) {
     console.log(this.name + ' à touché ' + target.name + ' avec ' + hit + ' de précision');
     console.log(this.name + ' a infligé ' + dmg + ' points de dégats à ' + target.name);
-    console.log('Il reste ' + target.hp + ' PV à ' + target.name);
+    if (target.hp <= 0) {
+        console.warn(target.name + " est mort(e), " + this.name + " a gagné !");
+    } else {
+        console.log('Il reste ' + target.hp + ' PV à ' + target.name);
+    }
 }
 
 // fonction de condition de victoire intégrée à l'attaque (provisoire)
