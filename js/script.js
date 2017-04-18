@@ -40,7 +40,7 @@ while (monster.hp > 0 && player.hp > 0) {
 
 }
 
-player.lvlUp(monster.xpValue)
+player.lvlUp(monster.xpValue);
 console.log(player.name + ' a gagné ' + player.xp + ' XP');
 console.log(player.name + ' est niveau ' + player.lvl);
 console.log(player.name + ' a ' + player.xp + '/' + player.xpLvl + 'XP');

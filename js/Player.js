@@ -21,8 +21,10 @@ function clamp(value, min, max) {
     return Math.max(Math.min(value, min), max);
 }
 
-Charac.prototype.lvlup = function(rewardXp) {
+Charac.prototype.lvlUp = function(rewardXp) {
+    // rajoute l'XP obtenue à l'XP du perso
     this.xp += rewardXp;
+    // Tant que l'XP gagnée fait monter d'un niveau
     while (this.xp >= this.xpLvl) {
         this.lvl++;
         this.xpLvl = this.lvl * 10;
