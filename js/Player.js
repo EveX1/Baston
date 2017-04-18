@@ -8,7 +8,7 @@ function Player(name, str, end, agi) {
     this.esq = this.agi * 5;
     this.xp = 0;
     this.lvl = 1;
-    this.xplvl = this.lvl * 10;
+    this.xpLvl = this.lvl * 10;
     this.hp = 100 + this.end * (5 + (this.lvl - 1));
     this.pointsBase = 15;
 }
@@ -22,44 +22,44 @@ function clamp(value, min, max) {
 }
 
 
-Charac.prototype.lvlup = function(rewardxp) {
-    this.xp += rewardxp;
-    while (this.xp >= this.xplvl) {
+Charac.prototype.lvlup = function(rewardXp) {
+    this.xp += rewardXp;
+    while (this.xp >= this.xpLvl) {
         this.lvl++;
-        this.xplvl = this.lvl * 10;
+        this.xpLvl = this.lvl * 10;
         this.hp = 100 + this.end * (5 + (this.lvl - 1));
         console.log('Vous avez gagné un niveau');
     }
 }
 
-Charac.prototype.createForm = function() {
-    input = document.createElement('input');
-    input.setAttribute("type", "number");
-    input.setAttribute("min", 1);
-    inputStr = input.setAttribute("onclick", "setAttributes(str.value)");
-    inputEnd = input.setAttribute("onclick", "setAttributes(end.value)");
-    inputAgi = input.setAttribute("onclick", "setAttributes(agi.value)");
-    console.log(inputStr);
+// Charac.prototype.createForm = function() {
+//     input = document.createElement('input');
+//     input.setAttribute("type", "number");
+//     input.setAttribute("min", 1);
+//     inputStr = input.setAttribute("onclick", "setAttributes(str.value)");
+//     inputEnd = input.setAttribute("onclick", "setAttributes(end.value)");
+//     inputAgi = input.setAttribute("onclick", "setAttributes(agi.value)");
+//     console.log(inputStr);
 
-    // document.querySelector('#str').appendChild(inputStr);
-}
+//     // document.querySelector('#str').appendChild(inputStr);
+// }
 
-Charac.prototype.setAttributes = function() {
+// Charac.prototype.setAttributes = function() {
 
-    var points = this.pointsBase + 3 - str.value - end.value - agi.value;
-    var str = document.querySelector('#str');
-    var end = document.querySelector('#end');
-    var agi = document.querySelector('#agi');
-    console.log(this.strF);
+//     var points = this.pointsBase + 3 - str.value - end.value - agi.value;
+//     var str = document.querySelector('#str');
+//     var end = document.querySelector('#end');
+//     var agi = document.querySelector('#agi');
+//     console.log(this.strF);
 
-    if (points <= 0) {
-        str.setAttribute("max", str.value);
-        end.setAttribute("max", end.value);
-        agi.setAttribute("max", agi.value);
-    } else {
-        str.setAttribute("max", clamp(str.value + points, 10, 0));
-        end.setAttribute("max", clamp(end.value + points, 10, 0));
-        agi.setAttribute("max", clamp(agi.value + points, 10, 0));
-    }
-    document.querySelector('#pointsCara').innerText = points;
-}
+//     if (points <= 0) {
+//         str.setAttribute("max", str.value);
+//         end.setAttribute("max", end.value);
+//         agi.setAttribute("max", agi.value);
+//     } else {
+//         str.setAttribute("max", clamp(str.value + points, 10, 0));
+//         end.setAttribute("max", clamp(end.value + points, 10, 0));
+//         agi.setAttribute("max", clamp(agi.value + points, 10, 0));
+//     }
+//     document.querySelector('#pointsCara').innerText = points;
+// }

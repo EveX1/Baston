@@ -1,14 +1,11 @@
 var player = new Player('Alice', 6, 6, 6);
-var monster = new Monster('Bob', 3, 3, 3, 2, 5, 50, 32, 3);
+var monster = new Monster('La reine de Coeur', 3, 3, 3, 5, 150, 8, 2);
 
-console.log('Bob est de niveau ' + monster.lvl);
-console.log('Bob a ' + monster.hp + ' PV');
+console.log(monster.name + ' est de niveau ' + monster.lvl);
+console.log(monster.name + ' a ' + monster.hp + ' PV');
 console.log('Bonne chance !');
 // tant que les persos ont des PV
-console.log(monster.hp);
-console.log(player.hp);
 while (monster.hp > 0 && player.hp > 0) {
-    console.log('Test');
     var initPlayer = player.init();
     var initMonster = monster.init;
 
@@ -19,13 +16,12 @@ while (monster.hp > 0 && player.hp > 0) {
         var hit = result[0];
         var dmg = result[1];
 
-        // vérifie si hit est un nombre
+        // vérifie si hit est un nombre car attack() renvoit une string en cas d'échec
         if (!isNaN(hit)) {
             player.log(monster);
         } else {
             console.log(hit);
         }
-        // player.victory(monster);
 
         // sinon le monstre attaque
     } else {
@@ -39,12 +35,13 @@ while (monster.hp > 0 && player.hp > 0) {
         } else {
             console.log(hit);
         }
-        // monster.victory(player);
     }
 
 }
 
-player.lvlup(monster.xp)
+console.log(monster.xpValue);
+console.log(monster.lvl);
+player.lvlup(monster.xpValue);
 console.log(player.name + ' a gagné ' + player.xp + ' XP');
 console.log(player.name + ' est niveau ' + player.lvl);
-console.log(player.name + ' a ' + player.xp + '/' + player.xplvl + 'XP');
+console.log(player.name + ' a ' + player.xp + '/' + player.xpLvl + 'XP');

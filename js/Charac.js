@@ -1,13 +1,11 @@
-function Charac(name, str, end, agi, esq, hp, xp, lvl) {
+function Charac(name, str, end, agi, esq, hp, lvl) {
     this.name = name;
     this.str = str;
     this.end = end;
     this.agi = agi;
     this.esq = esq;
     this.hp = hp;
-    this.xp = xp;
     this.lvl = lvl;
-
 }
 
 // random un nombre entre min et max
@@ -23,15 +21,20 @@ Charac.prototype.init = function() {
 
 // déterminer si le perso touche et appliquer les dégâts
 Charac.prototype.attack = function(target) {
-    var hit = Math.floor((Math.random() * 100) + 1) - target.esq;
+    // hit = valeur entre 0 et 100 - esquive de la cible
+    var hit = randomize(0, 100) - target.esq;
+    // si l'attaquant touche
     if (hit >= 0) {
+        // si le hit est supérieur à 90, coup critique (dmg*2)
         if (hit >= 90) {
             var dmg = this.dmgDone(target) * 2;
             console.warn("Coup critique !");
+        // sinon dégâts normaux
         } else {
             var dmg = this.dmgDone(target);
         }
         return [hit, dmg];
+    // sinon le coup rate
     } else {
         return [this.name + " a raté " + target.name, 0];
     }
@@ -40,13 +43,16 @@ Charac.prototype.attack = function(target) {
 // déterminer les dégâts infligés et les soustraire du pool d'hp de la cible
 Charac.prototype.dmgDone = function(target) {
     var dmg = randomize(this.str, this.str * 2);
+    // on enlève les dégats aux PV de la cible
     target.hp -= dmg;
     return dmg;
 }
 
+// affichage des résultats de chaque manche (provisoirement en console.log())
 Charac.prototype.log = function(target) {
     console.log(this.name + ' à touché ' + target.name + ' avec ' + hit + ' de précision');
     console.log(this.name + ' a infligé ' + dmg + ' points de dégats à ' + target.name);
+    // si la cible n'a plus de PV
     if (target.hp <= 0) {
         console.warn(target.name + " est mort(e), " + this.name + " a gagné !");
     } else {
@@ -54,9 +60,9 @@ Charac.prototype.log = function(target) {
     }
 }
 
-// fonction de condition de victoire intégrée à l'attaque (provisoire)
-Charac.prototype.victory = function(target) {
-    if (target.hp <= 0) {
-        console.warn(target.name + " est mort(e), " + this.name + " a gagné !");
-    }
-};
+// // fonction de condition de victoire intégrée à l'attaque (provisoire)
+// Charac.prototype.victory = function(target) {
+//     if (target.hp <= 0) {
+//         console.warn(target.name + " est mort(e), " + this.name + " a gagné !");
+//     }
+// }
