@@ -29,8 +29,7 @@ Charac.prototype.lvlUp = function(rewardXp) {
         // on monte d'un niveau
         this.lvl++;
         // on augmente le maximum d'XP nécessaire au passage du niveau suivant
-        this.xpLvl = Math.round(Math.pow(this.lvl*8, 1.1));
-        console.log(this.xpLvl);
+        this.xpLvl = Math.round(Math.pow(this.lvl * 8, 1.2));
         // on recalcule les PV max (basés sur le niveau)
         this.hp = 100 + this.end * (5 + (this.lvl - 1));
         console.log('Vous avez gagné un niveau');

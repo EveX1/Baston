@@ -20,4 +20,5 @@ To Do
        -[ ] Salles  
        -[ ] loot Monsters  
        -[ ] loot Salles  
+       -[ ] fêter ça dignement (Hein Poch !!!)  
     ]

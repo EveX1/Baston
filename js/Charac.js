@@ -6,6 +6,7 @@ function Charac(name, str, end, agi, esq, hp, lvl) {
     this.esq = esq;
     this.hp = hp;
     this.lvl = lvl;
+    this.skills = { NormalAttack, HeavyStrike }
 }
 
 // random un nombre entre min et max
@@ -29,12 +30,12 @@ Charac.prototype.attack = function(target) {
         if (hit >= 90) {
             var dmg = this.dmgDone(target) * 2;
             console.warn("Coup critique !");
-        // sinon dégâts normaux
+            // sinon dégâts normaux
         } else {
             var dmg = this.dmgDone(target);
         }
         return [hit, dmg];
-    // sinon le coup rate
+        // sinon le coup rate
     } else {
         return [this.name + " a raté " + target.name, 0];
     }
