@@ -9,42 +9,42 @@ var result = new NormalAttack(player, monster);
 var hit = result.hit;
 var dmg = result.dmgDone;
 
-// // tant que les persos ont des PV
-// while (monster.hp > 0 && player.hp > 0) {
-//     var initPlayer = player.init();
-//     var initMonster = monster.init;
+// tant que les persos ont des PV
+while (monster.hp > 0 && player.hp > 0) {
+    var initPlayer = player.init();
+    var initMonster = monster.init;
 
-//     console.log(player.name + ' a une initiative de ' + initPlayer + ' et ' + monster.name + ' de ' + initMonster);
-//     // vérifie si l'initiative du perso est suffisante pour attaquer
-//     if (initPlayer > initMonster) {
-//         var result = new NormalAttack(player, monster);
-//         var hit = result.hit;
-//         var dmg = result.dmgDone;
+    console.log(player.name + ' a une initiative de ' + initPlayer + ' et ' + monster.name + ' de ' + initMonster);
+    // vérifie si l'initiative du perso est suffisante pour attaquer
+    if (initPlayer > initMonster) {
+        var result = new HeavyStrike(player, monster);
+        var hit = result.hit;
+        var dmg = result.dmgDone;
 
-//         // vérifie si hit est un nombre car attack() renvoit une string en cas d'échec
-//         if (!isNaN(hit)) {
-//             player.log(monster);
-//         } else {
-//             console.log(hit);
-//         }
+        // vérifie si hit est un nombre car attack() renvoit une string en cas d'échec
+        if (!isNaN(hit)) {
+            player.log(monster);
+        } else {
+            console.log(hit);
+        }
 
-//         // sinon le monstre attaque
-//     } else {
-//         var result = monster.attack(player);
-//         var hit = result[0];
-//         var dmg = result[1];
+        // sinon le monstre attaque
+    } else {
+        var result = monster.attack(player);
+        var hit = result[0];
+        var dmg = result[1];
 
-//         // vérifie si hit est un nombre
-//         if (!isNaN(hit)) {
-//             monster.log(player);
-//         } else {
-//             console.log(hit);
-//         }
-//     }
+        // vérifie si hit est un nombre
+        if (!isNaN(hit)) {
+            monster.log(player);
+        } else {
+            console.log(hit);
+        }
+    }
 
-// }
+}
 
-// console.log(player.name + ' a gagné ' + monster.xpValue + ' XP');
-// player.lvlUp(monster.xpValue);
-// console.log(player.name + ' est niveau ' + player.lvl);
-// console.log(player.name + ' a ' + player.xp + '/' + player.xpLvl + 'XP');
+console.log(player.name + ' a gagné ' + monster.xpValue + ' XP');
+player.lvlUp(monster.xpValue);
+console.log(player.name + ' est niveau ' + player.lvl);
+console.log(player.name + ' a ' + player.xp + '/' + player.xpLvl + 'XP');
