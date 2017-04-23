@@ -13,6 +13,9 @@
         <fieldset>
             <legend>Création de personnage</legend>
             <label>Nom du personnage: </label><input id="name" type="text" name="Nom" placeholder="Nom du perso ..." /><br/>
+            <label>Sexe: </label>
+            <input type="radio" name="gender" value="M" checked> Homme
+            <input type="radio" name="gender" value="F"> Femme
             <br/>
             <fieldset>
                 <legend>Caractéristiques</legend>
@@ -30,6 +33,7 @@
                 </div>
             </fieldset>
         </fieldset>
+        <input type="submit" name="start" value="Start" onclick="start()">
     </form>
     <script src="./js/Charac.js"></script>
     <script src="./js/Player.js"></script>
