@@ -10,10 +10,9 @@ function NormalAttack(char, target) {
 NormalAttack.prototype.attack = function() {
     // si l'attaquant touche
     if (this.hit > 0) {
-        // si le hit est supérieur à 90, coup critique (dmg*2)
+        // si le hit est supérieur à 90, coup critique (dégâts augmentés)
         if (this.hit >= 90) {
-            this.dmgDone = this.dmg * 2;
-            console.warn("Coup critique !");
+            this.dmgDone = this.dmg * 1.5;
             // sinon dégâts normaux
         } else {
             this.dmgDone = this.dmg;

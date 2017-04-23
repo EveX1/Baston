@@ -20,11 +20,3 @@ Charac.prototype.init = function() {
     var init = randomize(0, 10)
     return init;
 }
-
-// déterminer les dégâts infligés et les soustraire du pool d'hp de la cible
-Charac.prototype.dmgDone = function(target) {
-    var dmg = randomize(this.str, this.str * 2);
-    // on enlève les dégats aux PV de la cible
-    target.hp -= dmg;
-    return dmg;
-}

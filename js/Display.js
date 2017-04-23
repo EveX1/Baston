@@ -24,6 +24,10 @@ Display.prototype.attackLog = function(char, target, attack) {
     if (attack.hit > 0) {
         // affichage de la précision
         console.log(char.name + ' à touché ' + target.name + ' avec ' + attack.hit + ' de précision');
+        // si le coup est critique
+        if (attack.hit >= 90) {
+        console.warn("Coup critique !");
+        }
         // affichage des dégats infligés
         console.log(char.name + ' a infligé ' + attack.dmgDone + ' points de dégats à ' + target.name);
         // si la cible n'a plus de PV

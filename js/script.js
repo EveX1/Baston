@@ -1,5 +1,5 @@
 var player = new Player('Alice', 'F', 6, 6, 6);
-var monster = new Monster('Bob', 'M', 3, 3, 3, 25, 70, 6, 2);
+var monster = new Monster('Bob', 'M', 3, 3, 3, 0, 70, 6, 2);
 var display = new Display(player, monster);
 
 display.startLog()
@@ -12,7 +12,7 @@ while (monster.hp > 0 && player.hp > 0) {
     // vérifie si l'initiative du perso est suffisante pour attaquer
     if (initPlayer > initMonster) {
         // instancie l'attaque
-        var result = new HeavyStrike(player, monster);
+        var result = new NormalAttack(player, monster);
         // applique l'attaque
         result.attack();
         // affiche les résultats de l'attaque
