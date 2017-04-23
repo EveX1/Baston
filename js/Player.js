@@ -1,5 +1,5 @@
-function Player(name, str, end, agi) {
-    Charac.call(this, name, str, end, agi);
+function Player(name, gender, str, end, agi) {
+    Charac.call(this, name, gender, str, end, agi);
     // this.points = document.querySelector('#attPoints').innerText;
     // this.name = document.querySelector('#name').value;
     // this.str = document.querySelector('#str').value;
@@ -32,8 +32,8 @@ Charac.prototype.lvlUp = function(rewardXp) {
         this.xpLvl = Math.round(Math.pow(this.lvl * 8, 1.2));
         // on recalcule les PV max (basés sur le niveau)
         this.hp = 100 + this.end * (5 + (this.lvl - 1));
-        console.log('Vous avez gagné un niveau');
-        console.log('Vous êtes de niveau ' + this.lvl);
+        console.log(this.name + ' a gagné un niveau');
+        console.log(this.name + ' est de niveau ' + this.lvl);
     }
 }
 

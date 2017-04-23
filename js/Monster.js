@@ -1,5 +1,5 @@
-function Monster(name, str, end, agi, esq, hp, lvl, initM) {
-    Charac.call(this, name, str, end, agi, esq, hp, lvl);
+function Monster(name, gender, str, end, agi, esq, hp, lvl, initM) {
+    Charac.call(this, name, gender, str, end, agi, esq, hp, lvl);
     this.init = initM;
     this.xpValue = Math.pow(this.lvl, 2);
 }

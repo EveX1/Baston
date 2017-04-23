@@ -1,12 +1,16 @@
 Petit projet javascript pour mettre en application les cours
 
 v0.1  
-    Classe Charac fonctionnelle  
+    + Classe Charac fonctionnelle  
 v0.2  
-    Héritage complet  
-    Player & Monster  
+    + Héritage complet  
+    + Player & Monster  
 v0.3  
-    XP et gain de niveau
+    + XP et gain de niveau  
+v0.4
+    + Gestion des compétences  
+    + Sexe des personnages  
+    + Refonte complète de la gestion de l'affichage  
 
 To Do
     [   
@@ -14,11 +18,10 @@ To Do
        -[x] héritage Charac -> Monster  
        -[x] XP  
        -[ ] Autres caractéristiques (précision, initiative calculée, intelligence, mana ?)  
-       -[ ] Compétences  
+       -[x] Compétences  
        -[ ] Armes  
        -[ ] Armures  
        -[ ] Salles  
        -[ ] loot Monsters  
        -[ ] loot Salles  
-       -[ ] fêter ça dignement (Hein Poch !!!)  
     ]
