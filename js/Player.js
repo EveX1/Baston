@@ -13,8 +13,6 @@ function Player(name, gender, str, end, agi) {
     this.lvl = 1;
     this.xpLvl = 10;
     this.hp = 100 + this.end * (5 + (this.lvl - 1));
-    console.log(this.points);
-    console.log(this.pointsBase);
 }
 
 Player.prototype = Object.create(Charac.prototype);
@@ -63,7 +61,6 @@ Charac.prototype.createForm = function() {
     inputAgi.setAttribute("min", 1);
     inputAgi.setAttribute("value", this.agi);
 
-    console.log(inputStr);
 
     document.querySelector('#str').appendChild(inputStr);
     document.querySelector('#end').appendChild(inputEnd);
@@ -72,7 +69,7 @@ Charac.prototype.createForm = function() {
 
 Charac.prototype.setAttributes = function() {
 
-    var str = document.querySelector('#str > input'); 
+    var str = document.querySelector('#str > input');
     var end = document.querySelector('#end > input');
     var agi = document.querySelector('#agi > input');
     this.points = this.pointsBase + 3 - str.value - end.value - agi.value;
@@ -87,4 +84,5 @@ Charac.prototype.setAttributes = function() {
         agi.setAttribute("max", clamp(agi.value + this.points, 10, 0));
     }
     document.querySelector('#attPoints').innerText = this.points;
+    document.querySelector('#name').value = this.name;
 }
