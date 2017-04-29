@@ -2,14 +2,12 @@ function Room(player, roomLvl, desc) {
     this.player = player;
     this.roomLvl = roomLvl;
     this.desc = desc;
-    this.randomMonsterLvl = monsters.ilvl[this.roomLvl];
-    console.log(Object.keys(this.randomMonsterLvl))
-    this.randomMonster = (Object.keys(this.randomMonsterLvl))[Math.floor(Math.random() * (Object.keys(this.randomMonsterLvl)).length)];
-    console.log(this.randomMonster);
-    this.monster = new Monster(monsters.ilvl[1].pillard2.name, monsters.ilvl[1].pillard2.gender, monsters.ilvl[1].pillard2.str, monsters.ilvl[1].pillard2.end, monsters.ilvl[1].pillard2.agi, monsters.ilvl[1].pillard2.esq, monsters.ilvl[1].pillard2.hp, monsters.ilvl[1].pillard2.lvl, monsters.ilvl[1].pillard2.initM);
+    this.randomMonster = monsters.ilvl[this.roomLvl][(Object.keys(monsters.ilvl[this.roomLvl]))[Math.floor(Math.random() * (Object.keys(monsters.ilvl[this.roomLvl])).length)]];
+    this.monster = new Monster(this.randomMonster.name, this.randomMonster.gender, this.randomMonster.str, this.randomMonster.end, this.randomMonster.agi, this.randomMonster.esq, this.randomMonster.hp, this.randomMonster.lvl, this.randomMonster.initM);
     // this.monster = new Monster('Bob', 'M', 3, 3, 3, 0, 70, 6, 2);
     this.display = new Display(this.player, this.monster);
     // this.loot = new Loot();
+    console.log("Vous arrivez dans " + this.desc)
     this.display.startLog();
     this.start(this.player, this.monster);
 }
