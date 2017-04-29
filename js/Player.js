@@ -1,9 +1,9 @@
 function Player(name, gender, str, end, agi) {
     Charac.call(this, name, gender, str, end, agi);
     this.pointsBase = 15;
-    this.createForm();
-    this.setAttributes();
-    this.points = document.querySelector('#attPoints').innerText;
+    // this.createForm();
+    // this.setAttributes();
+    // this.points = document.querySelector('#attPoints').innerText;
     // this.name = document.querySelector('#name').value;
     // this.str = document.querySelector('#str').value;
     // this.end = document.querySelector('#end').value;
@@ -18,12 +18,7 @@ function Player(name, gender, str, end, agi) {
 Player.prototype = Object.create(Charac.prototype);
 Player.prototype.conscructor = Player;
 
-// encadrer une value entre un min et un max
-function clamp(value, max, min) {
-    return Math.max(Math.min(value, max), min);
-}
-
-Charac.prototype.lvlUp = function(rewardXp) {
+Player.prototype.lvlUp = function(rewardXp) {
     // rajoute l'XP obtenue à l'XP du perso
     this.xp += rewardXp;
     // Tant que l'XP gagnée fait monter d'un niveau

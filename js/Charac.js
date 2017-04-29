@@ -10,11 +10,6 @@ function Charac(name, gender, str, end, agi, esq, hp, lvl) {
     this.skills = { NormalAttack, HeavyStrike };
 }
 
-// random un nombre entre min et max
-function randomize(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 // déterminer l'initiative (provisoire)
 Charac.prototype.init = function() {
     var init = randomize(0, 10);

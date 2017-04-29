@@ -1,0 +1,24 @@
+{
+    "normalattack": {
+        "name": "Attaque Normale",
+        "hit": [
+            0,
+            100
+        ],
+        "dmg": [
+            1,
+            2
+        ]
+    },
+    "heavystrike": {
+        "name": "Attaque Lourde",
+        "hit": [
+            0,
+            50
+        ],
+        "dmg": [
+            3,
+            5
+        ]
+    }
+}

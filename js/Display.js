@@ -18,17 +18,9 @@ Display.prototype.initLog = function (initPlayer, initMonster) {
     console.log(this.player.name + ' a une initiative de ' + initPlayer + ' et ' + this.monster.name + ' de ' + initMonster);
 }
 
-// affichage des résultats d'une attaque
-Display.prototype.attackLog = function(char, target, attack) {
-    // si l'attaque touche
-    if (attack.hit > 0) {
-        // affichage de la précision
-        console.log(char.name + ' à touché ' + target.name + ' avec ' + attack.hit + ' de précision');
-        // si le coup est critique
-        if (attack.hit >= 90) {
-        console.warn("Coup critique !");
-        }
-        // affichage des dégats infligés
+// affichage des résultats des dégâts
+Display.prototype.dmgLog = function(char, target, attack) {
+// affichage des dégats infligés
         console.log(char.name + ' a infligé ' + attack.dmgDone + ' points de dégats à ' + target.name);
         // si la cible n'a plus de PV
         if (target.hp <= 0) {
@@ -42,6 +34,19 @@ Display.prototype.attackLog = function(char, target, attack) {
         } else {
             console.log('Il reste ' + target.hp + ' PV à ' + target.name);
         }
+}
+
+// affichage des résultats d'une attaque
+Display.prototype.attackLog = function(char, target, attack) {
+    // si l'attaque touche
+    if (attack.hit > 0) {
+        // affichage de la précision
+        console.log(char.name + ' à touché ' + target.name + ' avec ' + attack.hit + ' de précision');
+        // si le coup est critique
+        if (attack.hit >= 90) {
+        console.warn("Coup critique !");
+    }
+    this.dmgLog(char, target, attack)
     // si l'attaque ne touche pas
     } else {
         console.log(char.name + " a raté " + target.name + '(' + attack.hit + ')');
