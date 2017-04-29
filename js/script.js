@@ -1,50 +1,36 @@
-var player = new Player('Alice', 6, 6, 6);
-var monster = new Monster('Bob', 3, 3, 3, 2, 5, 50, 32, 3);
+var player = new Player('Alice', 'F', 6, 6, 6);
+var monster = new Monster('Bob', 'M', 3, 3, 3, 0, 70, 6, 2);
+var display = new Display(player, monster);
 
-console.log('Bob est de niveau ' + monster.lvl);
-console.log('Bob a ' + monster.hp + ' PV');
-console.log('Bonne chance !');
+display.startLog();
+
 // tant que les persos ont des PV
-console.log(monster.hp);
-console.log(player.hp);
 while (monster.hp > 0 && player.hp > 0) {
-    console.log('Test');
     var initPlayer = player.init();
     var initMonster = monster.init;
-
-    console.log(player.name + ' a une initiative de ' + initPlayer + ' et ' + monster.name + ' de ' + initMonster);
+    display.initLog(initPlayer, initMonster);
     // vérifie si l'initiative du perso est suffisante pour attaquer
     if (initPlayer > initMonster) {
-        var result = player.attack(monster);
-        var hit = result[0];
-        var dmg = result[1];
-
-        // vérifie si hit est un nombre
-        if (!isNaN(hit)) {
-            player.log(monster);
-        } else {
-            console.log(hit);
-        }
-        // player.victory(monster);
+        // instancie l'attaque
+        var result = new NormalAttack(player, monster);
+        // applique l'attaque
+        result.attack();
+        // affiche les résultats de l'attaque
+        display.attackLog(player, monster, result);
 
         // sinon le monstre attaque
     } else {
-        var result = monster.attack(player);
-        var hit = result[0];
-        var dmg = result[1];
+        // instancie l'attaque
+        var result = new NormalAttack(monster, player);
+        // applique l'attaque
+        result.attack();
+        // affiche les résultats de l'attaque
+        display.attackLog(monster, player, result);
 
-        // vérifie si hit est un nombre
-        if (!isNaN(hit)) {
-            monster.log(player);
-        } else {
-            console.log(hit);
-        }
-        // monster.victory(player);
     }
 
 }
-
-player.lvlup(monster.xp)
-console.log(player.name + ' a gagné ' + player.xp + ' XP');
-console.log(player.name + ' est niveau ' + player.lvl);
-console.log(player.name + ' a ' + player.xp + '/' + player.xplvl + 'XP');
+// affiche le résultat final du combat
+if (player.pv > 0) {
+    display.lvlLog();
+}

@@ -1,6 +1,9 @@
-function Player(name, str, end, agi) {
-    Charac.call(this, name, str, end, agi);
-    // this.points = document.querySelector('#attPoints').innerText;
+function Player(name, gender, str, end, agi) {
+    Charac.call(this, name, gender, str, end, agi);
+    this.pointsBase = 15;
+    this.createForm();
+    this.setAttributes();
+    this.points = document.querySelector('#attPoints').innerText;
     // this.name = document.querySelector('#name').value;
     // this.str = document.querySelector('#str').value;
     // this.end = document.querySelector('#end').value;
@@ -8,58 +11,78 @@ function Player(name, str, end, agi) {
     this.esq = this.agi * 5;
     this.xp = 0;
     this.lvl = 1;
-    this.xplvl = this.lvl * 10;
+    this.xpLvl = 10;
     this.hp = 100 + this.end * (5 + (this.lvl - 1));
-    this.pointsBase = 15;
 }
 
 Player.prototype = Object.create(Charac.prototype);
 Player.prototype.conscructor = Player;
 
 // encadrer une value entre un min et un max
-function clamp(value, min, max) {
-    return Math.max(Math.min(value, min), max);
+function clamp(value, max, min) {
+    return Math.max(Math.min(value, max), min);
 }
 
-
-Charac.prototype.lvlup = function(rewardxp) {
-    this.xp += rewardxp;
-    while (this.xp >= this.xplvl) {
+Charac.prototype.lvlUp = function(rewardXp) {
+    // rajoute l'XP obtenue à l'XP du perso
+    this.xp += rewardXp;
+    // Tant que l'XP gagnée fait monter d'un niveau
+    while (this.xp >= this.xpLvl) {
+        // on monte d'un niveau
         this.lvl++;
-        this.xplvl = this.lvl * 10;
+        // on augmente le maximum d'XP nécessaire au passage du niveau suivant
+        this.xpLvl = Math.round(Math.pow(this.lvl * 8, 1.2));
+        // on recalcule les PV max (basés sur le niveau)
         this.hp = 100 + this.end * (5 + (this.lvl - 1));
-        console.log('Vous avez gagné un niveau');
+        console.log(this.name + ' a gagné un niveau');
+        console.log(this.name + ' est de niveau ' + this.lvl);
     }
 }
 
 Charac.prototype.createForm = function() {
-    input = document.createElement('input');
-    input.setAttribute("type", "number");
-    input.setAttribute("min", 1);
-    inputStr = input.setAttribute("onclick", "setAttributes(str.value)");
-    inputEnd = input.setAttribute("onclick", "setAttributes(end.value)");
-    inputAgi = input.setAttribute("onclick", "setAttributes(agi.value)");
-    console.log(inputStr);
+    // input = document.createElement('input');
+    // input.setAttribute("onclick", "setAttributes(x.value)")
+    // input.setAttribute("type", "number");
+    // input.setAttribute("min", 1);
 
-    // document.querySelector('#str').appendChild(inputStr);
+    inputStr = document.createElement('input');
+    inputStr.setAttribute("onclick", "player.setAttributes()");
+    inputStr.setAttribute("type", "number");
+    inputStr.setAttribute("min", 1);
+    inputStr.setAttribute("value", this.str);
+    inputEnd = document.createElement('input');
+    inputEnd.setAttribute("onclick", "player.setAttributes()");
+    inputEnd.setAttribute("type", "number");
+    inputEnd.setAttribute("min", 1);
+    inputEnd.setAttribute("value", this.end);
+    inputAgi = document.createElement('input');
+    inputAgi.setAttribute("onclick", "player.setAttributes()");
+    inputAgi.setAttribute("type", "number");
+    inputAgi.setAttribute("min", 1);
+    inputAgi.setAttribute("value", this.agi);
+
+
+    document.querySelector('#str').appendChild(inputStr);
+    document.querySelector('#end').appendChild(inputEnd);
+    document.querySelector('#agi').appendChild(inputAgi);
 }
 
 Charac.prototype.setAttributes = function() {
 
-    var points = this.pointsBase + 3 - str.value - end.value - agi.value;
-    var str = document.querySelector('#str');
-    var end = document.querySelector('#end');
-    var agi = document.querySelector('#agi');
-    console.log(this.strF);
+    var str = document.querySelector('#str > input');
+    var end = document.querySelector('#end > input');
+    var agi = document.querySelector('#agi > input');
+    this.points = this.pointsBase + 3 - str.value - end.value - agi.value;
 
-    if (points <= 0) {
+    if (this.points <= 0) {
         str.setAttribute("max", str.value);
         end.setAttribute("max", end.value);
         agi.setAttribute("max", agi.value);
     } else {
-        str.setAttribute("max", clamp(str.value + points, 10, 0));
-        end.setAttribute("max", clamp(end.value + points, 10, 0));
-        agi.setAttribute("max", clamp(agi.value + points, 10, 0));
+        str.setAttribute("max", clamp(str.value + this.points, 10, 0));
+        end.setAttribute("max", clamp(end.value + this.points, 10, 0));
+        agi.setAttribute("max", clamp(agi.value + this.points, 10, 0));
     }
-    document.querySelector('#pointsCara').innerText = points;
+    document.querySelector('#attPoints').innerText = this.points;
+    document.querySelector('#name').value = this.name;
 }
