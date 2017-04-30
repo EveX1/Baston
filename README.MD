@@ -16,9 +16,9 @@ v0.4
     + Refonte complète de la gestion de l'affichage  
 
 V0.5  
-    + Début d'interface (création de personnage et lancement de la première salle)
-    + Gestion des salles
-    x Bug de calcul des dégâts :(
+    + Début d'interface (création de personnage et lancement de la première salle)  
+    + Gestion des salles  
+    x Bug de calcul des dégâts :(  
 
 To Do
     [   
