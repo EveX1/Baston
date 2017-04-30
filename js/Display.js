@@ -19,35 +19,35 @@ Display.prototype.initLog = function (initPlayer, initMonster) {
 }
 
 // affichage des résultats des dégâts
-Display.prototype.dmgLog = function(char, target, attack) {
-// affichage des dégats infligés
-        console.log(char.name + ' a infligé ' + attack.dmgDone + ' points de dégats à ' + target.name);
-        // si la cible n'a plus de PV
-        if (target.hp <= 0) {
-            // vérification du sexe de la cible et affichage lié
-            if (target.gender == 'F') {
-                console.warn(target.name + " est morte, " + char.name + " a gagné !");
-            } else {
-                console.warn(target.name + " est mort, " + char.name + " a gagné !");
-            }
-        // sinon affichage de combien il reste de PV à la cible
+Display.prototype.dmgLog = function (char, target, attack) {
+    // affichage des dégats infligés
+    console.log(char.name + ' a infligé ' + attack.dmgDone + ' points de dégats à ' + target.name);
+    // si la cible n'a plus de PV
+    if (target.hp <= 0) {
+        // vérification du sexe de la cible et affichage lié
+        if (target.gender == 'F') {
+            console.warn(target.name + " est morte, " + char.name + " a gagné !");
         } else {
-            console.log('Il reste ' + target.hp + ' PV à ' + target.name);
+            console.warn(target.name + " est mort, " + char.name + " a gagné !");
         }
+        // sinon affichage de combien il reste de PV à la cible
+    } else {
+        console.log('Il reste ' + target.hp + ' PV à ' + target.name);
+    }
 }
 
 // affichage des résultats d'une attaque
-Display.prototype.attackLog = function(char, target, attack) {
+Display.prototype.attackLog = function (char, target, attack) {
     // si l'attaque touche
     if (attack.hit > 0) {
         // affichage de la précision
         console.log(char.name + ' à touché ' + target.name + ' avec ' + attack.hit + ' de précision');
         // si le coup est critique
         if (attack.hit >= 90) {
-        console.warn("Coup critique !");
-    }
-    this.dmgLog(char, target, attack)
-    // si l'attaque ne touche pas
+            console.warn("Coup critique !");
+        }
+        this.dmgLog(char, target, attack)
+        // si l'attaque ne touche pas
     } else {
         console.log(char.name + " a raté " + target.name + '(' + attack.hit + ')');
     }

@@ -7,7 +7,7 @@ function NormalAttack(char, target) {
 }
 
 // déterminer si l'attaquant touche et appliquer les dégâts
-NormalAttack.prototype.attack = function() {
+NormalAttack.prototype.attack = function () {
     // si l'attaquant touche
     if (this.hit > 0) {
         // si le hit est supérieur à 90, coup critique (dégâts augmentés)
@@ -16,6 +16,7 @@ NormalAttack.prototype.attack = function() {
             // sinon dégâts normaux
         } else {
             this.dmgDone = this.dmg;
+            console.error(this.dmg);
         }
         // on enlève les dégats aux PV de la cible
         this.target.hp -= this.dmgDone;

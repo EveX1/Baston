@@ -9,10 +9,10 @@ function Room(player, roomLvl, desc) {
     // this.loot = new Loot();
     console.log("Vous arrivez dans " + this.desc)
     this.display.startLog();
-    this.start(this.player, this.monster);
+    this.startFight(this.player, this.monster);
 }
 
-Room.prototype.start = function(player, monster) {
+Room.prototype.startFight = function (player, monster) {
     // tant que les persos ont des PV
     while (this.monster.hp > 0 && this.player.hp > 0) {
         var initPlayer = this.player.init();

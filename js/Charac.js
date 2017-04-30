@@ -7,11 +7,14 @@ function Charac(name, gender, str, end, agi, esq, hp, lvl) {
     this.esq = esq;
     this.hp = hp;
     this.lvl = lvl;
-    this.skills = { NormalAttack, HeavyStrike };
+    this.skills = {
+        NormalAttack,
+        HeavyStrike
+    };
 }
 
 // déterminer l'initiative (provisoire)
-Charac.prototype.init = function() {
+Charac.prototype.init = function () {
     var init = randomize(0, 10);
     return init;
 }
