@@ -18,9 +18,11 @@ v0.4
 V0.5  
     + Début d'interface (création de personnage et lancement de la première salle)  
     + Gestion des salles  
+    + Début de bestiaire  
+    + Monstre aléatoires par salle en fonction du niveau de la salle  
     x Bug de calcul des dégâts :(  
 
-V0.6
+V0.6  
     + Debug des calculs de dégats (normaux et critiques)  
     + Affichage terminé (finit les console.log() partout)  
     - Reste à implémenter les boutons de compétences  
@@ -29,6 +31,12 @@ V0.6
 
 v0.6.1  
     - Boutons de compétences (pas tout à fait fonctionnels)  
+
+v0.6.2  
+    + nettoyage des fichiers  
+    + ajout de commentaires  
+
+    x Boutons de compétences désactivés en attente de débugage  
 
 To Do
     [   
