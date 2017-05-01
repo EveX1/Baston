@@ -20,6 +20,13 @@ V0.5
     + Gestion des salles  
     x Bug de calcul des dégâts :(  
 
+V0.6
+    + Debug des calculs de dégats (normaux et critiques)  
+    + Affichage terminé (finit les console.log() partout)  
+    - Reste à implémenter les boutons de compétences 
+    - Et la gestion des compétences par l'IA
+    - (Coder une IA) :P
+
 To Do
     [   
        -[x] héritage Charac -> Player  
@@ -29,7 +36,7 @@ To Do
        -[x] Compétences  
        -[ ] Armes  
        -[ ] Armures  
-       -[ ] Salles  
+       -[x] Salles  
        -[ ] loot Monsters  
        -[ ] loot Salles  
     ]

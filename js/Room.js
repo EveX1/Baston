@@ -4,17 +4,17 @@ function Room(player, roomLvl, desc) {
     this.desc = desc;
     this.randomMonster = monsters.ilvl[this.roomLvl][(Object.keys(monsters.ilvl[this.roomLvl]))[Math.floor(Math.random() * (Object.keys(monsters.ilvl[this.roomLvl])).length)]];
     this.monster = new Monster(this.randomMonster.name, this.randomMonster.gender, this.randomMonster.str, this.randomMonster.end, this.randomMonster.agi, this.randomMonster.esq, this.randomMonster.hp, this.randomMonster.lvl, this.randomMonster.initM);
-    // this.monster = new Monster('Bob', 'M', 3, 3, 3, 0, 70, 6, 2);
-    this.display = new Display(this.player, this.monster);
+    this.display = new Display(this.player, this.monster, this);
     // this.loot = new Loot();
     console.log("Vous arrivez dans " + this.desc)
     this.display.startLog();
-    this.startFight(this.player, this.monster);
+    // this.startFight(this.player, this.monster);
+    this.display.inputAttack(this)
 }
 
-Room.prototype.startFight = function (player, monster) {
+Room.prototype.roundFight = function (player, monster) {
     // tant que les persos ont des PV
-    while (this.monster.hp > 0 && this.player.hp > 0) {
+    if (this.monster.hp > 0 && this.player.hp > 0) {
         var initPlayer = this.player.init();
         var initMonster = this.monster.init;
         this.display.initLog(initPlayer, initMonster);
@@ -39,7 +39,8 @@ Room.prototype.startFight = function (player, monster) {
 
     }
     // affiche le résultat final du combat
-    if (this.player.hp > 0) {
-        this.display.lvlLog();
+    if (this.monster.hp <= 0) {
+        document.querySelector('#attack').disabled = true;
+        this.display.lvlLog()
     }
 }

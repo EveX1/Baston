@@ -8,6 +8,7 @@ function launch() {
     var end = document.querySelector('#end').value;
     var agi = document.querySelector('#agi').value;
     var player = new Player(name, gender, str, end, agi);
-    console.log(player);
     var room = new Room(player, 1, "une salle obscure et dégoutante");
+    var form = document.querySelector('form');
+    document.querySelector('body').removeChild(form);
 }
