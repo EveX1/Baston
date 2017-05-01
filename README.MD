@@ -1,20 +1,20 @@
-Petit projet javascript pour mettre en application les cours
+**Petit projet javascript pour mettre en application les cours**
 
-v0.1  
+_v0.1_  
 
     + Classe Charac fonctionnelle  
 
-v0.2  
+_v0.2_  
 
     + Héritage complet  
 
     + Player & Monster  
 
-v0.3  
+_v0.3_  
 
     + XP et gain de niveau  
     
-v0.4  
+_v0.4_  
 
     + Gestion des compétences  
 
@@ -22,7 +22,7 @@ v0.4
 
     + Refonte complète de la gestion de l'affichage  
 
-V0.5  
+_V0.5_  
 
     + Début d'interface (création de personnage et lancement de la première salle)  
     + Gestion des salles  
@@ -33,7 +33,7 @@ V0.5
 
     x Bug de calcul des dégâts :(  
 
-V0.6  
+_V0.6_  
 
     + Debug des calculs de dégats (normaux et critiques)  
 
@@ -45,11 +45,11 @@ V0.6
 
     - (Coder une IA) :P  
 
-v0.6.1  
+_v0.6.1_  
 
     - Boutons de compétences (pas tout à fait fonctionnels)  
 
-v0.6.2  
+_v0.6.2_  
 
     + nettoyage des fichiers  
 
@@ -57,7 +57,7 @@ v0.6.2
 
     x Boutons de compétences désactivés en attente de débugage  
 
-To Do
+_To Do_
 
     -[x] héritage Charac -> Player  
     -[x] héritage Charac -> Monster  
