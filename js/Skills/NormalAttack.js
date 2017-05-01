@@ -23,9 +23,3 @@ NormalAttack.prototype.attack = function () {
     }
     // sinon le coup rate
 }
-
-// // déterminer les dégâts infligés et les soustraire du pool d'hp de la cible
-// NormalAttack.prototype.dmgDone = function() {
-//     // on enlève les dégats aux PV de la cible
-//     this.target.hp -= dmg;
-// }

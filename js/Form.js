@@ -55,7 +55,7 @@ Form.prototype.createForm = function () {
     submit.onclick = launch;
     submit.value = "Start";
 
-
+    // insertion des éléments créés dans la page
     document.querySelector('body').insertBefore(form, document.querySelector('script'));
     document.querySelector('form').appendChild(fieldset1);
     document.querySelector('#fieldset1').appendChild(legend1);
@@ -69,12 +69,14 @@ Form.prototype.createForm = function () {
     document.querySelector('#attributes').appendChild(legend2);
     document.querySelector('#attributes').appendChild(div);
     document.querySelectorAll('div')[0].appendChild(pAtt);
+    //création et insertion des champs d'attributs
     this.createInput("str", "Force: ");
     this.createInput("end", "Endurance: ");
     this.createInput("agi", "Agilité: ");
     document.querySelector('form').appendChild(submit);
 }
 
+//création et insertion des champs d'attributs
 Form.prototype.createInput = function (att, labelText) {
     var div = document.createElement("div");
     div.setAttribute("id", "div" + att)
@@ -92,22 +94,26 @@ Form.prototype.createInput = function (att, labelText) {
     input.oninput = this.setAttributes.bind(this);
 }
 
+// fonction de calcul et de limite des attributs
 Form.prototype.setAttributes = function () {
 
     var str = document.querySelector('#str');
     var end = document.querySelector('#end');
     var agi = document.querySelector('#agi');
+    //calcul des points restants à distribuer
     this.points = this.pointsBase + 3 - str.value - end.value - agi.value;
 
+    // si les points sont inférieurs ou égaux à 0
     if (this.points <= 0) {
+        // chaque valeur de champ est limité au maximum à elle même
         str.setAttribute("max", str.value);
         end.setAttribute("max", end.value);
         agi.setAttribute("max", agi.value);
     } else {
-        str.setAttribute("max", clamp(str.value + this.points, 10, 0));
-        end.setAttribute("max", clamp(end.value + this.points, 10, 0));
-        agi.setAttribute("max", clamp(agi.value + this.points, 10, 0));
+        // sinon elle est limitée à une valeur comprise entre 1 et 10 OU sa valeur actuelle + les points restants à distribuer
+        str.setAttribute("max", clamp(str.value + this.points, 10, 1));
+        end.setAttribute("max", clamp(end.value + this.points, 10, 1));
+        agi.setAttribute("max", clamp(agi.value + this.points, 10, 1));
     }
     document.querySelector('#attPoints').innerText = this.points;
-    document.querySelector('#name').value = this.name;
 }

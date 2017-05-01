@@ -7,6 +7,7 @@ function Display(player, monster, room) {
 
 Display.prototype.skelet = function () {
     var div = document.createElement("div");
+    div.setAttribute("class", "flex-container")
     var divPlayer = document.createElement("div");
     divPlayer.setAttribute("id", "player");
     var divMonster = document.createElement("div");
@@ -18,29 +19,25 @@ Display.prototype.skelet = function () {
 
     document.querySelector('body').insertBefore(div, document.querySelector('script'));
     div.appendChild(divPlayer);
-    div.appendChild(divMonster);
     div.appendChild(divFight);
     div.appendChild(divResults);
+    div.appendChild(divMonster);
 }
 
-Display.prototype.inputAttack = function (room, skill) {
-    var input = document.createElement("input");
-    input.setAttribute("type", "button");
-    input.setAttribute("id", skill);
-    console.log(skill)
-    console.log(skill.name)
-    input.value = skill.name;
-    input.onclick = function () {
-        room.roundFight(this.player, this.monster, skill);
-    }
-    document.querySelector('#player').appendChild(input);
+// construction des boutons d'attaques (skills)
+Display.prototype.inputAttack = function (room) {
+    console.log(this.player.skills)
+    this.player.skills.forEach(function (skill) {
+        var input = document.createElement("input");
+        input.setAttribute("type", "button");
+        input.setAttribute("id", skill);
+        input.value = skill;
+        input.onclick = function () {
+            room.roundFight(this.player, this.monster, skill);
+        }
+        document.querySelector('#player').appendChild(input);
+    }, this);
 }
-
-// Display.prototype.normalText = function (id, text) {
-//     var div = document.createElement("div");
-//     div.innerText = text;
-//     document.querySelector('#' + id).appendChild(div);
-// }
 
 // affichage d'un tableau de textes
 Display.prototype.normalText = function (id, array) {
@@ -49,8 +46,11 @@ Display.prototype.normalText = function (id, array) {
         el.innerHTML += createTextVersion(text);
         el.innerHTML += "<br>";
     });
-    var display = el;
-    document.querySelector('#' + id).appendChild(display);
+    if (document.querySelector('#' + id + "> div")) {
+        document.querySelector('#' + id).replaceChild(el, document.querySelector('#' + id + "> div"));
+    } else {
+        document.querySelector('#' + id).appendChild(el);
+    }
 }
 
 // affichage d'un texte avec un timer paramétrable
@@ -64,6 +64,10 @@ Display.prototype.timedOutText = function (id, text, timer = 500) {
 
 // affichage du début de combat
 Display.prototype.startLog = function () {
+    this.timedOutText("fight", "Vous arrivez dans " + this.room.desc, 200);
+}
+// affichage des statistiques des combattants
+Display.prototype.statsLog = function () {
     this.normalText("player", [
         // affiche le niveau du joueur
         this.player.name + ' est de niveau ' + this.player.lvl,
@@ -76,9 +80,8 @@ Display.prototype.startLog = function () {
         // affiche le niveau du monstre
         this.monster.name + ' est de niveau ' + this.monster.lvl,
         // affiche les PV du monstre
-        this.monster.name + ' a ' + this.monster.hp + ' PV'
+        this.monster.name + ' a ' + this.monster.hp + '/' + this.monster.hpFull + ' PV'
     ]);
-    this.timedOutText("fight", "Vous arrivez dans " + this.room.desc, 200);
 }
 
 // // affichage de l'initiative au début de chaque tour
@@ -86,8 +89,8 @@ Display.prototype.startLog = function () {
 //     this.timedOutText("fight", this.player.name + ' a une initiative de ' + initPlayer + ' et ' + this.monster.name + ' de ' + initMonster);
 // }
 // affichage de l'initiative au début de chaque tour
-Display.prototype.initLog = function () {
-    this.timedOutText("fight", this.player.name + ' a une initiative de ' + this.player.init() + ' et ' + this.monster.name + ' de ' + this.monster.init, 300);
+Display.prototype.initLog = function (initPlayer) {
+    this.timedOutText("fight", this.player.name + ' a une initiative de ' + initPlayer + ' et ' + this.monster.name + ' de ' + this.monster.init, 300);
 }
 
 // affichage des résultats des dégâts
@@ -128,12 +131,17 @@ Display.prototype.attackLog = function (char, target, attack) {
 
 // affichage de la montée en XP
 Display.prototype.lvlLog = function () {
+    // lock des boutons d'attaque
+    el = document.querySelectorAll('#player > input');
+    el.forEach(function (element) {
+        element.disabled = true;
+    });
     // affichage de l'XP gagnée
-    this.timedOutText("results", this.player.name + ' a gagné ' + this.monster.xpValue + ' XP');
+    this.timedOutText("results", this.player.name + ' a gagné ' + this.monster.xpValue + ' XP', 1500);
     // appel de la méthode de montée de niveau
     this.player.lvlUp(this.monster.xpValue);
     // affichage du niveau du joueur
-    this.timedOutText("results", this.player.name + ' est niveau ' + this.player.lvl);
+    this.timedOutText("results", this.player.name + ' est niveau ' + this.player.lvl, 1500);
     // affichage de l'XP actuelle du joueur
-    this.timedOutText("results", this.player.name + ' a ' + this.player.xp + '/' + this.player.xpLvl + 'XP');
+    this.timedOutText("results", this.player.name + ' a ' + this.player.xp + '/' + this.player.xpLvl + 'XP', 1500);
 }

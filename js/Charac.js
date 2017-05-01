@@ -8,10 +8,10 @@ function Charac(name, gender, str, end, agi, esq, hp, lvl) {
     this.hp = hp;
     this.hpFull = hp;
     this.lvl = lvl;
-    this.skills = {
-        NormalAttack,
-        HeavyStrike
-    };
+    this.skills = [
+        "NormalAttack",
+        "HeavyStrike"
+    ];
 }
 
 // déterminer l'initiative (provisoire)

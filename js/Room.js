@@ -9,24 +9,30 @@ function Room(player, roomLvl, desc) {
     this.startRoom();
 
 }
+// lancement 
 Room.prototype.startRoom = function () {
     this.display.startLog();
-    Object.values(this.player.skills).forEach(function (skill) {
-        this.display.inputAttack(this, skill)
-    }, this);
+    this.display.statsLog();
+    this.display.inputAttack(this);
+
+    // this.player.skills.forEach(function (skill) {
+    //     this.display.inputAttack(this, skill)
+    // }, this);
 }
 
+// fonction de déclenchement des actions et attaques pour chaque round
 Room.prototype.roundFight = function (player, monster, skill) {
     // tant que les persos ont des PV
     if (this.monster.hp > 0 && this.player.hp > 0) {
+        // initialisation des valeurs d'initiative
         var initPlayer = this.player.init();
         var initMonster = this.monster.init;
-        this.display.initLog();
+        // appel de la fonction d'affichage des initiatives
+        this.display.initLog(initPlayer);
         // vérifie si l'initiative du perso est suffisante pour attaquer
         if (initPlayer > initMonster) {
             // instancie l'attaque
             var result = new skill(this.player, this.monster);
-            console.warn(result)
             // applique l'attaque
             result.attack();
             // affiche les résultats de l'attaque
@@ -41,11 +47,11 @@ Room.prototype.roundFight = function (player, monster, skill) {
             // affiche les résultats de l'attaque
             this.display.attackLog(this.monster, this.player, result);
         }
+        this.display.statsLog();
 
     }
     // affiche le résultat final du combat
     if (this.monster.hp <= 0) {
-        document.querySelector('#attack').disabled = true;
         this.display.lvlLog()
     }
 }
