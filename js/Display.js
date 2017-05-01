@@ -2,7 +2,6 @@ function Display(player, monster, room) {
     this.player = player;
     this.monster = monster;
     this.room = room;
-    console.log(this.room)
     this.skelet();
 }
 
@@ -24,68 +23,88 @@ Display.prototype.skelet = function () {
     div.appendChild(divResults);
 }
 
-Display.prototype.inputAttack = function (room) {
+Display.prototype.inputAttack = function (room, skill) {
     var input = document.createElement("input");
     input.setAttribute("type", "button");
-    input.setAttribute("id", "attack");
-    input.value = "Attaquer";
+    input.setAttribute("id", skill);
+    console.log(skill)
+    console.log(skill.name)
+    input.value = skill.name;
     input.onclick = function () {
-        room.roundFight(this.player, this.monster);
+        room.roundFight(this.player, this.monster, skill);
     }
     document.querySelector('#player').appendChild(input);
 }
 
-Display.prototype.normalText = function (id, text) {
-    var p = document.createElement("p");
-    p.innerText = text;
-    document.querySelector('#' + id).appendChild(p);
+// Display.prototype.normalText = function (id, text) {
+//     var div = document.createElement("div");
+//     div.innerText = text;
+//     document.querySelector('#' + id).appendChild(div);
+// }
+
+// affichage d'un tableau de textes
+Display.prototype.normalText = function (id, array) {
+    var el = document.createElement("div");
+    array.forEach(function (text) {
+        el.innerHTML += createTextVersion(text);
+        el.innerHTML += "<br>";
+    });
+    var display = el;
+    document.querySelector('#' + id).appendChild(display);
 }
 
-Display.prototype.timedOutText = function (id, text) {
+// affichage d'un texte avec un timer paramétrable
+Display.prototype.timedOutText = function (id, text, timer = 500) {
     var el = document.querySelector("#" + id)
     var timer = setTimeout(function () {
-        el.innerText += " " + text;
+        el.innerHTML += createTextVersion(text);
         el.innerHTML += "<br>";
-    }, 500)
+    }, timer)
 }
 
 // affichage du début de combat
 Display.prototype.startLog = function () {
-    // affiche le niveau du joueur
-    this.normalText("player", this.player.name + ' est de niveau ' + this.player.lvl);
-    // affichage de l'XP actuelle du joueur
-    this.normalText("player", this.player.name + ' a ' + this.player.xp + '/' + this.player.xpLvl + 'XP');
-    // affiche les PV du joueur
-    this.normalText("player", this.player.name + ' a ' + this.player.hp + '/' + this.player.hpFull + ' PV');
-    // affiche le niveau du monstre
-    this.normalText("monster", this.monster.name + ' est de niveau ' + this.monster.lvl);
-    // affiche les PV du monstre
-    this.normalText("monster", this.monster.name + ' a ' + this.monster.hp + ' PV');
-    // on encourage le joueur !
-    this.timedOutText("fight", 'Bonne chance !');
+    this.normalText("player", [
+        // affiche le niveau du joueur
+        this.player.name + ' est de niveau ' + this.player.lvl,
+        // affichage de l'XP actuelle du joueur
+        this.player.name + ' a ' + this.player.xp + '/' + this.player.xpLvl + 'XP',
+        // affiche les PV du joueur
+        this.player.name + ' a ' + this.player.hp + '/' + this.player.hpFull + ' PV'
+    ]);
+    this.normalText("monster", [
+        // affiche le niveau du monstre
+        this.monster.name + ' est de niveau ' + this.monster.lvl,
+        // affiche les PV du monstre
+        this.monster.name + ' a ' + this.monster.hp + ' PV'
+    ]);
+    this.timedOutText("fight", "Vous arrivez dans " + this.room.desc, 200);
 }
 
+// // affichage de l'initiative au début de chaque tour
+// Display.prototype.initLog = function (initPlayer, initMonster) {
+//     this.timedOutText("fight", this.player.name + ' a une initiative de ' + initPlayer + ' et ' + this.monster.name + ' de ' + initMonster);
+// }
 // affichage de l'initiative au début de chaque tour
-Display.prototype.initLog = function (initPlayer, initMonster) {
-    this.timedOutText("fight", this.player.name + ' a une initiative de ' + initPlayer + ' et ' + this.monster.name + ' de ' + initMonster);
-    // console.log(this.player.name + ' a une initiative de ' + initPlayer + ' et ' + this.monster.name + ' de ' + initMonster);
+Display.prototype.initLog = function () {
+    this.timedOutText("fight", this.player.name + ' a une initiative de ' + this.player.init() + ' et ' + this.monster.name + ' de ' + this.monster.init, 300);
 }
 
 // affichage des résultats des dégâts
 Display.prototype.dmgLog = function (char, target, attack) {
     // affichage des dégats infligés
-    this.timedOutText("fight", char.name + ' a infligé ' + attack.dmgDone + ' points de dégats à ' + target.name);
+    this.timedOutText("fight", char.name + ' a infligé ' + attack.dmgDone + ' points de dégats à ' + target.name, 900);
     // si la cible n'a plus de PV
     if (target.hp <= 0) {
         // vérification du sexe de la cible et affichage lié
         if (target.gender == 'F') {
-            this.timedOutText("results", target.name + " est morte, " + char.name + " a gagné !");
+            this.timedOutText("results", target.name + " est morte, " + char.name + " a gagné !", 1200);
         } else {
-            this.timedOutText("results", target.name + " est mort, " + char.name + " a gagné !");
+            this.timedOutText("results", target.name + " est mort, " + char.name + " a gagné !", 1200);
         }
         // sinon affichage de combien il reste de PV à la cible
     } else {
-        this.timedOutText("fight", 'Il reste ' + target.hp + '/' + target.hpFull + ' PV à ' + target.name);
+        this.timedOutText("fight", 'Il reste ' + target.hp + '/' + target.hpFull + ' PV à ' + target.name, 1200);
     }
 }
 
@@ -94,15 +113,16 @@ Display.prototype.attackLog = function (char, target, attack) {
     // si l'attaque touche
     if (attack.hit > 0) {
         // affichage de la précision
-        this.timedOutText("fight", char.name + ' à touché ' + target.name + ' avec ' + attack.hit + ' de précision');
+        this.timedOutText("fight", char.name + ' à touché ' + target.name + ' avec ' + attack.hit + ' de précision', 700);
         // si le coup est critique
         if (attack.hit >= 90) {
-            this.timedOutText("fight", "Coup critique !");
+            this.timedOutText("fight", "Coup critique !", 600);
         }
+        // appel de la function d'affichage des dégâts
         this.dmgLog(char, target, attack)
         // si l'attaque ne touche pas
     } else {
-        this.timedOutText("fight", char.name + " a raté " + target.name + ' (' + attack.hit + ')');
+        this.timedOutText("fight", char.name + " a raté " + target.name + ' (' + attack.hit + ')', 700);
     }
 }
 

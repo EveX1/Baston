@@ -22,6 +22,7 @@ Form.prototype.createForm = function () {
     labelName.innerText = "Nom du personnage: ";
     var inputName = document.createElement("input");
     inputName.setAttribute("id", "name");
+    inputName.value = "Alice";
 
     // sexe du personnage
     var labelGender = document.createElement("label");
@@ -84,7 +85,7 @@ Form.prototype.createInput = function (att, labelText) {
     input.setAttribute("id", att);
     input.setAttribute("type", "number");
     input.setAttribute("min", 1);
-    input.setAttribute("value", 1);
+    input.setAttribute("value", 5);
     document.querySelector("#attributes").appendChild(div);
     document.querySelector("#div" + att).appendChild(label);
     document.querySelector("#div" + att).appendChild(input);

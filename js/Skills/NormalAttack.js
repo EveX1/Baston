@@ -1,4 +1,5 @@
 function NormalAttack(char, target) {
+    this.name = "Attaque normale";
     this.char = char;
     this.target = target;
     this.hit = randomize(0, 100) - this.target.esq;

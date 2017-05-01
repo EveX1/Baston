@@ -27,6 +27,9 @@ V0.6
     - Et la gestion des compétences par l'IA  
     - (Coder une IA) :P  
 
+v0.6.1  
+    - Boutons de compétences (pas tout à fait fonctionnels)  
+
 To Do
     [   
        -[x] héritage Charac -> Player  
