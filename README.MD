@@ -23,9 +23,9 @@ V0.5
 V0.6
     + Debug des calculs de dégats (normaux et critiques)  
     + Affichage terminé (finit les console.log() partout)  
-    - Reste à implémenter les boutons de compétences 
-    - Et la gestion des compétences par l'IA
-    - (Coder une IA) :P
+    - Reste à implémenter les boutons de compétences  
+    - Et la gestion des compétences par l'IA  
+    - (Coder une IA) :P  
 
 To Do
     [   
