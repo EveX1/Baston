@@ -9,8 +9,8 @@ function Charac(name, gender, str, end, agi, esq, hp, lvl) {
     this.hpFull = hp;
     this.lvl = lvl;
     this.skills = {
-        "Attaque Normale": "NormalAttack",
-        "Attaque Lourde": "HeavyStrike"
+        NormalAttack,
+        HeavyStrike
     };
 }
 

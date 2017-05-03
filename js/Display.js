@@ -5,6 +5,7 @@ function Display(player, monster, room) {
     this.skelet();
 }
 
+// préparation des div HTML de l'affichage
 Display.prototype.skelet = function () {
     var div = document.createElement("div");
     div.setAttribute("class", "flex-container")
@@ -26,17 +27,40 @@ Display.prototype.skelet = function () {
 
 // construction des boutons d'attaques (skills)
 Display.prototype.inputAttack = function (room) {
-    Object.entries(this.player.skills).forEach(function (skill) {
+    // pour chaque skill attribué à une personnage
+    Object.values(this.player.skills).forEach(function (skill) {
+        // on instancie le skill pour récupérer certaines de ses valeurs
+        var skillInstance = new skill(this.player, this.monster)
+        // création du bouton de déclenchement
         var input = document.createElement("input");
         input.setAttribute("type", "button");
-        input.setAttribute("id", skill[1]);
-        input.value = skill[0];
-        input.onclick = function () {
-            room.roundFight(this.player, this.monster, window[skill[1]]);
-        }
+        // attribution du nom de la CLASSE (et non pas du this.name présent dans le constructeur) à l'id du boutton
+        input.setAttribute("id", skill.name);
+        // attribution du nom de l'instance à la value du boutton
+        input.value = skillInstance.name;
+        // création d'un eventListener "onclick"
+        input.addEventListener('click', function () {
+            // on ré-instancie l'objet afin de redeterminer les valeurs à chaque attaque
+            skillInstance = new skill(this.player, this.monster);
+            // on envoie la nouvelle instance à la méthode de Room
+            room.roundFight(this.player, this.monster, skillInstance);
+            // On bind l'eventListener sur l'objet Display
+        }.bind(this), false);
         document.querySelector('#player').appendChild(input);
     }, this);
 }
+
+// désactivation des boutons liés aux compétences
+Display.prototype.disableInputsTimer = function (timer = 1700) {
+    el = document.querySelectorAll('#player > input');
+    el.forEach(function (input) {
+        input.disabled = true;
+        setTimeout(function () {
+            input.disabled = false
+        }, timer)
+    })
+}
+
 
 // affichage d'un tableau de textes
 Display.prototype.normalText = function (id, array) {
@@ -138,7 +162,7 @@ Display.prototype.lvlLog = function () {
     // affichage de l'XP gagnée
     this.timedOutText("results", this.player.name + ' a gagné ' + this.monster.xpValue + ' XP', 1500);
     // appel de la méthode de montée de niveau
-    this.player.lvlUp(this.monster.xpValue);
+    this.player.lvlUp(this.monster.xpValue, this);
     // affichage du niveau du joueur
     this.timedOutText("results", this.player.name + ' est niveau ' + this.player.lvl, 1500);
     // affichage de l'XP actuelle du joueur
