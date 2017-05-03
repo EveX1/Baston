@@ -11,7 +11,7 @@ function Player(name, gender, str, end, agi) {
 Player.prototype = Object.create(Charac.prototype);
 Player.prototype.conscructor = Player;
 
-Player.prototype.lvlUp = function (rewardXp) {
+Player.prototype.lvlUp = function (rewardXp, display) {
     // rajoute l'XP obtenue à l'XP du perso
     this.xp += rewardXp;
     // Tant que l'XP gagnée fait monter d'un niveau
@@ -23,7 +23,7 @@ Player.prototype.lvlUp = function (rewardXp) {
         // on recalcule les PV max (basés sur le niveau)
         this.hpFull = 100 + this.end * (5 + (this.lvl - 1));
         this.hp = this.hpFull;
-        console.log(this.name + ' a gagné un niveau');
-        console.log(this.name + ' est de niveau ' + this.lvl);
+        display.timedOutText("results", this.name + ' a gagné un niveau', 1000);
+        display.timedOutText("results", this.name + ' est de niveau ' + this.lvl, 1000);
     }
 }

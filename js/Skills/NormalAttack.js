@@ -6,10 +6,6 @@ function NormalAttack(char, target) {
     this.dmg = randomize(this.char.str, this.char.str * 2);
 }
 
-NormalAttack.prototype.getName = function () {
-    return this.name;
-}
-
 // déterminer si l'attaquant touche et appliquer les dégâts
 NormalAttack.prototype.attack = function () {
     // si l'attaquant touche
