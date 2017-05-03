@@ -26,14 +26,13 @@ Display.prototype.skelet = function () {
 
 // construction des boutons d'attaques (skills)
 Display.prototype.inputAttack = function (room) {
-    console.log(this.player.skills)
-    this.player.skills.forEach(function (skill) {
+    Object.entries(this.player.skills).forEach(function (skill) {
         var input = document.createElement("input");
         input.setAttribute("type", "button");
-        input.setAttribute("id", skill);
-        input.value = skill;
+        input.setAttribute("id", skill[1]);
+        input.value = skill[0];
         input.onclick = function () {
-            room.roundFight(this.player, this.monster, window[skill]);
+            room.roundFight(this.player, this.monster, window[skill[1]]);
         }
         document.querySelector('#player').appendChild(input);
     }, this);

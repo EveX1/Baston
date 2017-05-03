@@ -4,7 +4,10 @@ function NormalAttack(char, target) {
     this.target = target;
     this.hit = randomize(0, 100) - this.target.esq;
     this.dmg = randomize(this.char.str, this.char.str * 2);
-    // this.dmgDone = 0;
+}
+
+NormalAttack.prototype.getName = function () {
+    return this.name;
 }
 
 // déterminer si l'attaquant touche et appliquer les dégâts
