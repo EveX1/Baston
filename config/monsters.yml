@@ -1,9 +1,21 @@
-pillard: 
-    name: "Bob"
-    str: 3
-    end: 3
-    agi: 3
-    esq: 25
-    hp: 70
-    lvl: 6
-    initM: 2
+ilvl:
+    1:
+        pillard: 
+            name: "Bob le pillard"
+            str: 3
+            end: 3
+            agi: 3
+            esq: 5
+            hp: 70
+            lvl: 2
+            initM: 2
+    2:
+        mutant: 
+            name: "Bob le mutant"
+            str: 5
+            end: 5
+            agi: 5
+            esq: 15
+            hp: 150
+            lvl: 4
+            initM: 4

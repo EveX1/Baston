@@ -1,0 +1,22 @@
+body {
+    background: #3a4250;
+    color: #00c14e;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flex-container>div {
+    padding: 2rem;
+}
+
+#player {
+    justify-content: flex-start;
+}
+
+#monster {
+    justify-content: flex-end;
+}

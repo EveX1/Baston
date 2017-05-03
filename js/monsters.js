@@ -1,0 +1,2 @@
+var monstersJSON = '{"ilvl": {"1": {"pillard": {"name": "Bob le pillard","gender": "M","str": 3,"end": 3,"agi": 3,"esq": 5,"hp": 70,"lvl": 2,"initM": 2},"pillard2": {"name": "Chris le pillard","gender": "M","str": 2,"end": 4,"agi": 3,"esq": 5,"hp": 90,"lvl": 2,"initM": 2}},"2": {"mutant": {"name": "Dean le mutant","gender": "M","str": 5,"end": 5,"agi": 5,"esq": 15,"hp": 120,"lvl": 4,"initM": 4}}}}'
+var monsters = JSON.parse(monstersJSON);

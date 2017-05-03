@@ -6,17 +6,16 @@ function Charac(name, gender, str, end, agi, esq, hp, lvl) {
     this.agi = agi;
     this.esq = esq;
     this.hp = hp;
+    this.hpFull = hp;
     this.lvl = lvl;
-    this.skills = { NormalAttack, HeavyStrike };
-}
-
-// random un nombre entre min et max
-function randomize(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    this.skills = {
+        "Attaque Normale": "NormalAttack",
+        "Attaque Lourde": "HeavyStrike"
+    };
 }
 
 // déterminer l'initiative (provisoire)
-Charac.prototype.init = function() {
+Charac.prototype.init = function () {
     var init = randomize(0, 10);
     return init;
 }
