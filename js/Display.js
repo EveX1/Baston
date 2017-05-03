@@ -33,7 +33,7 @@ Display.prototype.inputAttack = function (room) {
         input.setAttribute("id", skill);
         input.value = skill;
         input.onclick = function () {
-            room.roundFight(this.player, this.monster, skill);
+            room.roundFight(this.player, this.monster, window[skill]);
         }
         document.querySelector('#player').appendChild(input);
     }, this);

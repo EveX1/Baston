@@ -32,20 +32,20 @@ Room.prototype.roundFight = function (player, monster, skill) {
         // vérifie si l'initiative du perso est suffisante pour attaquer
         if (initPlayer > initMonster) {
             // instancie l'attaque
-            var result = new skill(this.player, this.monster);
+            var results = new skill(this.player, this.monster);
             // applique l'attaque
-            result.attack();
+            results.attack();
             // affiche les résultats de l'attaque
-            this.display.attackLog(this.player, this.monster, result);
+            this.display.attackLog(this.player, this.monster, results);
 
             // sinon le monstre attaque
         } else {
             // instancie l'attaque
-            var result = new NormalAttack(this.monster, this.player);
+            var results = new NormalAttack(this.monster, this.player);
             // applique l'attaque
-            result.attack();
+            results.attack();
             // affiche les résultats de l'attaque
-            this.display.attackLog(this.monster, this.player, result);
+            this.display.attackLog(this.monster, this.player, results);
         }
         this.display.statsLog();
 

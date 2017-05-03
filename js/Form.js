@@ -58,14 +58,9 @@ Form.prototype.createForm = function () {
     // insertion des éléments créés dans la page
     document.querySelector('body').insertBefore(form, document.querySelector('script'));
     document.querySelector('form').appendChild(fieldset1);
-    document.querySelector('#fieldset1').appendChild(legend1);
-    document.querySelector('#fieldset1').appendChild(labelName);
-    document.querySelector('#fieldset1').appendChild(inputName);
-    document.querySelector('#fieldset1').appendChild(br);
-    document.querySelector('#fieldset1').appendChild(labelGender);
-    document.querySelector('#fieldset1').appendChild(radioGenderM);
-    document.querySelector('#fieldset1').appendChild(radioGenderF);
-    document.querySelector('#fieldset1').appendChild(fieldset2);
+
+    this.multiAppend("#fieldset1", [legend1, labelName, inputName, br, labelGender, radioGenderM, radioGenderF, fieldset2])
+
     document.querySelector('#attributes').appendChild(legend2);
     document.querySelector('#attributes').appendChild(div);
     document.querySelectorAll('div')[0].appendChild(pAtt);
@@ -74,6 +69,14 @@ Form.prototype.createForm = function () {
     this.createInput("end", "Endurance: ");
     this.createInput("agi", "Agilité: ");
     document.querySelector('form').appendChild(submit);
+    this.setAttributes();
+}
+
+Form.prototype.multiAppend = function (element, childs) {
+    var i = 0;
+    childs.forEach(function (child) {
+        document.querySelector(element).appendChild(child);
+    }, this);
 }
 
 //création et insertion des champs d'attributs
