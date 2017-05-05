@@ -1,6 +1,10 @@
 **Petit projet javascript pour mettre en application les cours**
 
 
+_v0.6.3.1_
+
+    + Changements mineurs (nettoyage du code mort et ajouts de commentaires)
+
 _v0.6.3_
 
     + Modification de la gestion des compétences par personnage
