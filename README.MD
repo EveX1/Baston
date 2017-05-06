@@ -5,6 +5,10 @@ _v0.6.4_
     + Modification de la gestion de l'instanciation des monstres
     + Les objets Rooms deviennent des Cells
 
+_v0.6.3.1_
+
+    + Changements mineurs (nettoyage du code mort et ajouts de commentaires)
+
 _v0.6.3_
 
     + Modification de la gestion des compétences par personnage
