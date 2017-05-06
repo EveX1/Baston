@@ -1,18 +1,18 @@
-function Room(player, roomLvl, desc) {
+function Cell(player, cellLvl, desc) {
     this.player = player;
-    this.roomLvl = roomLvl;
+    this.cellLvl = cellLvl;
     this.desc = desc;
     // va chercher un monstre dans la table des monstres qui correspond au niveau de la salle
-    this.randomMonster = monsters.ilvl[this.roomLvl][(Object.keys(monsters.ilvl[this.roomLvl]))[Math.floor(Math.random() * (Object.keys(monsters.ilvl[this.roomLvl])).length)]];
+    this.randomMonster = monsters.ilvl[this.cellLvl][(Object.keys(monsters.ilvl[this.cellLvl]))[Math.floor(Math.random() * (Object.keys(monsters.ilvl[this.cellLvl])).length)]];
     // création du monstre
-    this.monster = new Monster(this.randomMonster.name, this.randomMonster.gender, this.randomMonster.str, this.randomMonster.end, this.randomMonster.agi, this.randomMonster.esq, this.randomMonster.hp, this.randomMonster.lvl, this.randomMonster.initM);
+    this.monster = new Monster(this.randomMonster);
     this.display = new Display(this.player, this.monster, this);
     // this.loot = new Loot();
-    this.startRoom();
+    this.startCell();
 
 }
 // lancement 
-Room.prototype.startRoom = function () {
+Cell.prototype.startCell = function () {
     this.display.startLog();
     this.display.statsLog();
     this.display.inputAttack(this);
@@ -23,7 +23,7 @@ Room.prototype.startRoom = function () {
 }
 
 // fonction de déclenchement des actions et attaques pour chaque round
-Room.prototype.roundFight = function (player, monster, skill) {
+Cell.prototype.roundFight = function (player, monster, skill) {
     // tant que les persos ont des PV
     if (this.monster.hp > 0 && this.player.hp > 0) {
         // désactivation des boutons de compétences le temps d'afficher les résultats

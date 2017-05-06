@@ -46,7 +46,7 @@ Form.prototype.createForm = function () {
     legend2.innerText = "Attributs";
 
     var pAtt = document.createElement("p");
-    pAtt.innerHTML = "Il vous reste <span id=\"attPoints\">15</span> points à répartir entre les 3 caractéristiques suivantes: ";
+    pAtt.innerHTML = "Il vous reste <span id=\"attPoints\"></span> points à répartir entre les 3 caractéristiques suivantes: ";
 
     // bouton de validation
     var submit = document.createElement("input");

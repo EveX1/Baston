@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <script type="text/javascript" src="./js/monsters.js"></script>
+        <script>
+            var randomMonster = monsters.ilvl[1][(Object.keys(monsters.ilvl[1]))[Math.floor(Math.random() * (Object.keys(
+                monsters.ilvl[1])).length)]];
+            console.log(monsters)
+            console.log(randomMonster)
+        </script>
+
+
+    </body>
+
+</html>

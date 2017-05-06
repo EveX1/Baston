@@ -1,7 +1,7 @@
-function Display(player, monster, room) {
+function Display(player, monster, cell) {
     this.player = player;
     this.monster = monster;
-    this.room = room;
+    this.cell = cell;
     this.skelet();
 }
 
@@ -26,11 +26,11 @@ Display.prototype.skelet = function () {
 }
 
 // construction des boutons d'attaques (skills)
-Display.prototype.inputAttack = function (room) {
-    // pour chaque skill attribué à une personnage
+Display.prototype.inputAttack = function (cell) {
+    // pour chaque skill attribué à un personnage
     Object.values(this.player.skills).forEach(function (skill) {
         // on instancie le skill pour récupérer certaines de ses valeurs
-        var skillInstance = new skill(this.player, this.monster)
+        var skillInstance = new skill(this.player, this.monster);
         // création du bouton de déclenchement
         var input = document.createElement("input");
         input.setAttribute("type", "button");
@@ -42,10 +42,9 @@ Display.prototype.inputAttack = function (room) {
         input.addEventListener('click', function () {
             // on ré-instancie l'objet afin de redeterminer les valeurs à chaque attaque
             skillInstance = new skill(this.player, this.monster);
-            // on envoie la nouvelle instance à la méthode de Room
-            room.roundFight(this.player, this.monster, skillInstance);
-            // On bind l'eventListener sur l'objet Display
-        }.bind(this), false);
+            // on envoie la nouvelle instance à la méthode de Cell
+            cell.roundFight(this.player, this.monster, skillInstance);
+        }.bind(this), false); // On bind l'eventListener sur l'objet Display
         document.querySelector('#player').appendChild(input);
     }, this);
 }
@@ -87,7 +86,7 @@ Display.prototype.timedOutText = function (id, text, timer = 500) {
 
 // affichage du début de combat
 Display.prototype.startLog = function () {
-    this.timedOutText("fight", "Vous arrivez dans " + this.room.desc, 200);
+    this.timedOutText("fight", "Vous arrivez dans " + this.cell.desc, 200);
 }
 // affichage des statistiques des combattants
 Display.prototype.statsLog = function () {
