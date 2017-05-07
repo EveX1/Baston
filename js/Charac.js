@@ -5,6 +5,7 @@ function Charac(name, gender, str, end, agi, esq, hp, lvl) {
     this.end = end;
     this.agi = agi;
     this.esq = esq;
+    this.speed = (20 / (Math.log(parseInt(this.agi) + 2))) - 5
     this.hp = hp;
     this.hpFull = hp;
     this.lvl = lvl;

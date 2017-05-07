@@ -9,15 +9,20 @@ function Display(player, monster, cell) {
 Display.prototype.skelet = function () {
     var div = document.createElement("div");
     div.setAttribute("class", "flex-container")
+
     var divPlayer = document.createElement("div");
     divPlayer.setAttribute("id", "player");
+
     var divMonster = document.createElement("div");
     divMonster.setAttribute("id", "monster");
+
     var divFight = document.createElement("div");
     divFight.setAttribute("id", "fight");
+
     var divResults = document.createElement("div");
     divResults.setAttribute("id", "results");
 
+    // insertion de la div juste avant la première balise script
     document.querySelector('body').insertBefore(div, document.querySelector('script'));
     div.appendChild(divPlayer);
     div.appendChild(divFight);
@@ -27,6 +32,9 @@ Display.prototype.skelet = function () {
 
 // construction des boutons d'attaques (skills)
 Display.prototype.inputAttack = function (cell) {
+    var divPlayerSkills = document.createElement("div");
+    divPlayerSkills.setAttribute("id", "skills");
+    document.querySelector('#player').appendChild(divPlayerSkills);
     // pour chaque skill attribué à un personnage
     Object.values(this.player.skills).forEach(function (skill) {
         // on instancie le skill pour récupérer certaines de ses valeurs
@@ -45,33 +53,59 @@ Display.prototype.inputAttack = function (cell) {
             // on envoie la nouvelle instance à la méthode de Cell
             cell.roundFight(this.player, this.monster, skillInstance);
         }.bind(this), false); // On bind l'eventListener sur l'objet Display
-        document.querySelector('#player').appendChild(input);
+        divPlayerSkills.appendChild(input);
     }, this);
 }
 
 // désactivation des boutons liés aux compétences
-Display.prototype.disableInputsTimer = function (timer = 1700) {
-    el = document.querySelectorAll('#player > input');
+Display.prototype.disableInputsTimer = function (timer = 20000) {
+    el = document.querySelectorAll('#skills > input');
     el.forEach(function (input) {
         input.disabled = true;
+        // input.style.display = "none";
         setTimeout(function () {
-            input.disabled = false
+            input.disabled = false;
+            // input.style.display = "initial"
         }, timer)
     })
 }
 
+// afficher une barre de progression
+Display.prototype.loadBar = function (elemId, timer) {
+    var elem = document.getElementById(elemId);
+    var bar = document.createElement("div");
+    bar.setAttribute("id", "bar");
+    if (document.getElementById("bar")) {
+        elem.replaceChild(bar, document.getElementById("bar"));
+    } else {
+        elem.appendChild(bar);
+    }
+    var width = 0;
+    var inter = setInterval(frame, timer);
 
-// affichage d'un tableau de textes
-Display.prototype.normalText = function (id, array) {
+    function frame() {
+        if (width >= 100) {
+            clearInterval(inter);
+            bar.style.display = "none";
+        } else {
+            width++;
+            bar.style.width = width + '%';
+        }
+    }
+}
+
+// affichage de textes provenants d'un tableau
+Display.prototype.normalText = function (targetId, array, newId) {
     var el = document.createElement("div");
+    el.setAttribute("id", newId);
     array.forEach(function (text) {
         el.innerHTML += createTextVersion(text);
         el.innerHTML += "<br>";
     });
-    if (document.querySelector('#' + id + "> div")) {
-        document.querySelector('#' + id).replaceChild(el, document.querySelector('#' + id + "> div"));
+    if (document.querySelector('#' + targetId + "> div")) {
+        document.querySelector('#' + targetId).replaceChild(el, document.querySelector('#' + targetId + "> div"));
     } else {
-        document.querySelector('#' + id).appendChild(el);
+        document.querySelector('#' + targetId).appendChild(el);
     }
 }
 
@@ -88,6 +122,7 @@ Display.prototype.timedOutText = function (id, text, timer = 500) {
 Display.prototype.startLog = function () {
     this.timedOutText("fight", "Vous arrivez dans " + this.cell.desc, 200);
 }
+
 // affichage des statistiques des combattants
 Display.prototype.statsLog = function () {
     this.normalText("player", [
@@ -97,19 +132,15 @@ Display.prototype.statsLog = function () {
         this.player.name + ' a ' + this.player.xp + '/' + this.player.xpLvl + 'XP',
         // affiche les PV du joueur
         this.player.name + ' a ' + this.player.hp + '/' + this.player.hpFull + ' PV'
-    ]);
+    ], "player_desc");
     this.normalText("monster", [
         // affiche le niveau du monstre
         this.monster.name + ' est de niveau ' + this.monster.lvl,
         // affiche les PV du monstre
         this.monster.name + ' a ' + this.monster.hp + '/' + this.monster.hpFull + ' PV'
-    ]);
+    ], "monster_desc");
 }
 
-// // affichage de l'initiative au début de chaque tour
-// Display.prototype.initLog = function (initPlayer, initMonster) {
-//     this.timedOutText("fight", this.player.name + ' a une initiative de ' + initPlayer + ' et ' + this.monster.name + ' de ' + initMonster);
-// }
 // affichage de l'initiative au début de chaque tour
 Display.prototype.initLog = function (initPlayer) {
     this.timedOutText("fight", this.player.name + ' a une initiative de ' + initPlayer + ' et ' + this.monster.name + ' de ' + this.monster.init, 300);

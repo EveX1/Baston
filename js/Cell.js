@@ -9,25 +9,22 @@ function Cell(player, cellLvl, desc) {
     this.display = new Display(this.player, this.monster, this);
     // this.loot = new Loot();
     this.startCell();
-
 }
-// lancement 
+
+// lancement de la cellule
 Cell.prototype.startCell = function () {
     this.display.startLog();
     this.display.statsLog();
     this.display.inputAttack(this);
-
-    // this.player.skills.forEach(function (skill) {
-    //     this.display.inputAttack(this, skill)
-    // }, this);
 }
 
 // fonction de déclenchement des actions et attaques pour chaque round
 Cell.prototype.roundFight = function (player, monster, skill) {
-    // tant que les persos ont des PV
+    // si au moins l'un des personnages a des PV
     if (this.monster.hp > 0 && this.player.hp > 0) {
         // désactivation des boutons de compétences le temps d'afficher les résultats
-        this.display.disableInputsTimer();
+        this.display.disableInputsTimer(this.player.speed * 1000);
+        this.display.loadBar("skills", parseFloat(this.player.speed) * 10);
         // initialisation des valeurs d'initiative
         var initPlayer = this.player.init();
         var initMonster = this.monster.init;
