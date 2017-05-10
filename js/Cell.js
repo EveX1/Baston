@@ -23,7 +23,7 @@ Cell.prototype.roundFight = function (player, monster, skill) {
     // si au moins l'un des personnages a des PV
     if (this.monster.hp > 0 && this.player.hp > 0) {
         // désactivation des boutons de compétences le temps d'afficher les résultats
-        this.display.disableInputsTimer(this.player.speed * 1000);
+        this.display.disableInputs("skills", this.player.speed * 1000);
         this.display.loadBar("skills", parseFloat(this.player.speed) * 10);
         // initialisation des valeurs d'initiative
         var initPlayer = this.player.init();
@@ -52,5 +52,6 @@ Cell.prototype.roundFight = function (player, monster, skill) {
     // affiche le résultat final du combat
     if (this.monster.hp <= 0) {
         this.display.lvlLog()
+        this.display.disableInputs("skills");
     }
 }

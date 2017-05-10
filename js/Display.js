@@ -58,15 +58,22 @@ Display.prototype.inputAttack = function (cell) {
 }
 
 // désactivation des boutons liés aux compétences
-Display.prototype.disableInputsTimer = function (timer = 20000) {
-    el = document.querySelectorAll('#skills > input');
+Display.prototype.disableInputs = function (elemId, timer = 0) {
+    el = document.querySelectorAll('#' + elemId + ' > input');
     el.forEach(function (input) {
         input.disabled = true;
         // input.style.display = "none";
-        setTimeout(function () {
-            input.disabled = false;
-            // input.style.display = "initial"
-        }, timer)
+        if (timer > 0) {
+            disableTimer = setTimeout(function () {
+                input.disabled = false;
+                // input.style.display = "initial";
+            }, timer)
+        } else {
+            console.log(disableTimer)
+            window.clearTimeout(disableTimer);
+            input.disabled = true;
+            // input.style.display = "none";
+        }
     })
 }
 
