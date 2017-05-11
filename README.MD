@@ -1,4 +1,10 @@
-**Petit projet javascript pour mettre en application les cours**
+# Baston
+Petit projet javascript pour mettre en application les cours
+
+_v0.6.4.1_
+
+    + Débuggage du blocage des boutons de compétence à la fin d'un combat
+    + Nettoyage du code
 
 _v0.6.4_
 
