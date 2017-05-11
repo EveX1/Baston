@@ -4,7 +4,8 @@ function Form() {
     this.points = document.querySelector('#attPoints').innerText;
 }
 
-Form.prototype.createForm = function () {
+// méthode de création du formulaire de personnage
+Form.prototype.createForm = function() {
     var br = document.createElement("br");
     var div = document.createElement("div");
 
@@ -12,7 +13,7 @@ Form.prototype.createForm = function () {
     var form = document.createElement("form");
     form.setAttribute("method", "post");
     var fieldset1 = document.createElement("fieldset");
-    fieldset1.setAttribute("id", "fieldset1")
+    fieldset1.setAttribute("id", "fieldset1");
     var legend1 = document.createElement("legend");
     legend1.innerText = "Création de personnage";
 
@@ -41,12 +42,12 @@ Form.prototype.createForm = function () {
 
     // partie attributs du personnage
     var fieldset2 = document.createElement("fieldset");
-    fieldset2.setAttribute("id", "attributes")
+    fieldset2.setAttribute("id", "attributes");
     var legend2 = document.createElement("legend");
     legend2.innerText = "Attributs";
 
     var pAtt = document.createElement("p");
-    pAtt.innerHTML = "Il vous reste <span id=\"attPoints\">15</span> points à répartir entre les 3 caractéristiques suivantes: ";
+    pAtt.innerHTML = "Il vous reste <span id=\"attPoints\"></span> points à répartir entre les 3 caractéristiques suivantes: ";
 
     // bouton de validation
     var submit = document.createElement("input");
@@ -59,33 +60,34 @@ Form.prototype.createForm = function () {
     document.querySelector('body').insertBefore(form, document.querySelector('script'));
     document.querySelector('form').appendChild(fieldset1);
 
-    this.multiAppend("#fieldset1", [legend1, labelName, inputName, br, labelGender, radioGenderM, radioGenderF, fieldset2])
+    this.multiAppend("#fieldset1", [legend1, labelName, inputName, br, labelGender, radioGenderM, radioGenderF, fieldset2]);
 
     document.querySelector('#attributes').appendChild(legend2);
     document.querySelector('#attributes').appendChild(div);
     document.querySelectorAll('div')[0].appendChild(pAtt);
+
     //création et insertion des champs d'attributs
     this.createInput("str", "Force: ");
     this.createInput("end", "Endurance: ");
     this.createInput("agi", "Agilité: ");
     document.querySelector('form').appendChild(submit);
     this.setAttributes();
-}
+};
 
-Form.prototype.multiAppend = function (element, childs) {
-    var i = 0;
-    childs.forEach(function (child) {
+// function permettant des multiple appendChild avec un tableau d'éléments
+Form.prototype.multiAppend = function(element, childs) {
+    childs.forEach(function(child) {
         document.querySelector(element).appendChild(child);
     }, this);
-}
+};
 
 //création et insertion des champs d'attributs
-Form.prototype.createInput = function (att, labelText) {
+Form.prototype.createInput = function(att, labelText) {
     var div = document.createElement("div");
-    div.setAttribute("id", "div" + att)
+    div.setAttribute("id", "div" + att);
     var input = document.createElement('input');
     var label = document.createElement("label");
-    label.setAttribute("for", att)
+    label.setAttribute("for", att);
     label.innerText = labelText;
     input.setAttribute("id", att);
     input.setAttribute("type", "number");
@@ -95,10 +97,10 @@ Form.prototype.createInput = function (att, labelText) {
     document.querySelector("#div" + att).appendChild(label);
     document.querySelector("#div" + att).appendChild(input);
     input.oninput = this.setAttributes.bind(this);
-}
+};
 
 // fonction de calcul et de limite des attributs
-Form.prototype.setAttributes = function () {
+Form.prototype.setAttributes = function() {
 
     var str = document.querySelector('#str');
     var end = document.querySelector('#end');
@@ -113,10 +115,10 @@ Form.prototype.setAttributes = function () {
         end.setAttribute("max", end.value);
         agi.setAttribute("max", agi.value);
     } else {
-        // sinon elle est limitée à une valeur comprise entre 1 et 10 OU sa valeur actuelle + les points restants à distribuer
+        // sinon elle est limitée à une valeur comprise entre 1 et 10 OU sa valeur actuelle + les points restants à distribuer si inférieure à 10
         str.setAttribute("max", clamp(str.value + this.points, 10, 1));
         end.setAttribute("max", clamp(end.value + this.points, 10, 1));
         agi.setAttribute("max", clamp(agi.value + this.points, 10, 1));
     }
     document.querySelector('#attPoints').innerText = this.points;
-}
+};

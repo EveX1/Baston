@@ -1,4 +1,4 @@
-var form = new Form();
+new Form();
 
 
 function launch() {
@@ -8,7 +8,7 @@ function launch() {
     var end = document.querySelector('#end').value;
     var agi = document.querySelector('#agi').value;
     var player = new Player(name, gender, str, end, agi);
-    var room = new Room(player, 1, "une salle obscure et dégoutante");
+    new Cell(player, 1, "une salle obscure et dégoutante");
     var form = document.querySelector('form');
     document.querySelector('body').removeChild(form);
 }
