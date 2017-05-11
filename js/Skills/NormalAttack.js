@@ -21,4 +21,4 @@ NormalAttack.prototype.attack = function () {
         this.target.hp -= this.dmgDone;
     }
     // sinon le coup rate
-}
+};

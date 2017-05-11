@@ -52,4 +52,4 @@ var monsters = {
             "desc": "Mutant"
         }]
     }
-}
+};

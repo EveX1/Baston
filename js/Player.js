@@ -26,4 +26,4 @@ Player.prototype.lvlUp = function (rewardXp, display) {
         display.timedOutText("results", this.name + ' a gagné un niveau', 1000);
         display.timedOutText("results", this.name + ' est de niveau ' + this.lvl, 1000);
     }
-}
+};

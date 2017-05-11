@@ -16,15 +16,12 @@ Cell.prototype.startCell = function () {
     this.display.startLog();
     this.display.statsLog();
     this.display.inputAttack(this);
-}
+};
 
 // fonction de déclenchement des actions et attaques pour chaque round
 Cell.prototype.roundFight = function (player, monster, skill) {
     // si au moins l'un des personnages a des PV
     if (this.monster.hp > 0 && this.player.hp > 0) {
-        // désactivation des boutons de compétences le temps d'afficher les résultats
-        this.display.disableInputs("skills", this.player.speed * 1000);
-        this.display.loadBar("skills", parseFloat(this.player.speed) * 10);
         // initialisation des valeurs d'initiative
         var initPlayer = this.player.init();
         var initMonster = this.monster.init;
@@ -40,18 +37,22 @@ Cell.prototype.roundFight = function (player, monster, skill) {
             // sinon le monstre attaque
         } else {
             // instancie l'attaque
-            var skill = new NormalAttack(this.monster, this.player);
+            var skillM = new NormalAttack(this.monster, this.player);
             // applique l'attaque
-            skill.attack();
+            skillM.attack();
             // affiche les résultats de l'attaque
-            this.display.attackLog(this.monster, this.player, skill);
+            this.display.attackLog(this.monster, this.player, skillM);
         }
+        // désactivation des boutons de compétences le temps d'afficher les résultats
+        this.display.disableInputs("skills", this.player.speed * 1000);
+        this.display.loadBar("skills", parseFloat(this.player.speed) * 10);
+        // appel de l'affichage des stats
         this.display.statsLog();
 
     }
     // affiche le résultat final du combat
     if (this.monster.hp <= 0) {
-        this.display.lvlLog()
-        this.display.disableInputs("skills");
+        this.display.lvlLog();
+        // this.display.disableInputs("skills", 100000);
     }
-}
+};

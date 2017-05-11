@@ -2,13 +2,14 @@ function Display(player, monster, cell) {
     this.player = player;
     this.monster = monster;
     this.cell = cell;
+    this.disableTimer;
     this.skelet();
 }
 
 // préparation des div HTML de l'affichage
 Display.prototype.skelet = function () {
     var div = document.createElement("div");
-    div.setAttribute("class", "flex-container")
+    div.setAttribute("class", "flex-container");
 
     var divPlayer = document.createElement("div");
     divPlayer.setAttribute("id", "player");
@@ -28,7 +29,7 @@ Display.prototype.skelet = function () {
     div.appendChild(divFight);
     div.appendChild(divResults);
     div.appendChild(divMonster);
-}
+};
 
 // construction des boutons d'attaques (skills)
 Display.prototype.inputAttack = function (cell) {
@@ -36,46 +37,46 @@ Display.prototype.inputAttack = function (cell) {
     divPlayerSkills.setAttribute("id", "skills");
     document.querySelector('#player').appendChild(divPlayerSkills);
     // pour chaque skill attribué à un personnage
-    Object.values(this.player.skills).forEach(function (skill) {
+    for (var skill in this.player.skills) {
         // on instancie le skill pour récupérer certaines de ses valeurs
-        var skillInstance = new skill(this.player, this.monster);
+        var skillInstance = new window[skill](this.player, this.monster);
         // création du bouton de déclenchement
         var input = document.createElement("input");
         input.setAttribute("type", "button");
         // attribution du nom de la CLASSE (et non pas du this.name présent dans le constructeur) à l'id du boutton
-        input.setAttribute("id", skill.name);
+        input.setAttribute("id", skill);
         // attribution du nom de l'instance à la value du boutton
         input.value = skillInstance.name;
         // création d'un eventListener "onclick"
         input.addEventListener('click', function () {
             // on ré-instancie l'objet afin de redeterminer les valeurs à chaque attaque
-            skillInstance = new skill(this.player, this.monster);
+            skillInstance = new window[skill](this.player, this.monster);
             // on envoie la nouvelle instance à la méthode de Cell
             cell.roundFight(this.player, this.monster, skillInstance);
         }.bind(this), false); // On bind l'eventListener sur l'objet Display
         divPlayerSkills.appendChild(input);
-    }, this);
-}
+    };
+};
 
 // désactivation des boutons liés aux compétences
-Display.prototype.disableInputs = function (elemId, timer = 0) {
+Display.prototype.disableInputs = function (elemId, timer) {
+    // récupération de tout les inputs dans l'élément sélectionné
     el = document.querySelectorAll('#' + elemId + ' > input');
+    // pour chaque input trouvé
     el.forEach(function (input) {
+        // désactivation
         input.disabled = true;
-        // input.style.display = "none";
-        if (timer > 0) {
-            disableTimer = setTimeout(function () {
+        // visibilité désactivé
+        input.style.display = "none";
+        // si le monstre à encore des PV, on réaffiche le bouton avec le timer des paramètres
+        if (this.monster.hp > 0) {
+            setTimeout(function () {
                 input.disabled = false;
-                // input.style.display = "initial";
+                input.style.display = "initial";
             }, timer)
-        } else {
-            console.log(disableTimer)
-            window.clearTimeout(disableTimer);
-            input.disabled = true;
-            // input.style.display = "none";
         }
-    })
-}
+    }, this)
+};
 
 // afficher une barre de progression
 Display.prototype.loadBar = function (elemId, timer) {
@@ -99,7 +100,7 @@ Display.prototype.loadBar = function (elemId, timer) {
             bar.style.width = width + '%';
         }
     }
-}
+};
 
 // affichage de textes provenants d'un tableau
 Display.prototype.normalText = function (targetId, array, newId) {
@@ -114,21 +115,21 @@ Display.prototype.normalText = function (targetId, array, newId) {
     } else {
         document.querySelector('#' + targetId).appendChild(el);
     }
-}
+};
 
 // affichage d'un texte avec un timer paramétrable
 Display.prototype.timedOutText = function (id, text, timer = 500) {
-    var el = document.querySelector("#" + id)
-    var timer = setTimeout(function () {
+    var el = document.querySelector("#" + id);
+    setTimeout(function () {
         el.innerHTML += createTextVersion(text);
         el.innerHTML += "<br>";
     }, timer)
-}
+};
 
 // affichage du début de combat
 Display.prototype.startLog = function () {
     this.timedOutText("fight", "Vous arrivez dans " + this.cell.desc, 200);
-}
+};
 
 // affichage des statistiques des combattants
 Display.prototype.statsLog = function () {
@@ -146,12 +147,12 @@ Display.prototype.statsLog = function () {
         // affiche les PV du monstre
         this.monster.name + ' a ' + this.monster.hp + '/' + this.monster.hpFull + ' PV'
     ], "monster_desc");
-}
+};
 
 // affichage de l'initiative au début de chaque tour
 Display.prototype.initLog = function (initPlayer) {
     this.timedOutText("fight", this.player.name + ' a une initiative de ' + initPlayer + ' et ' + this.monster.name + ' de ' + this.monster.init, 300);
-}
+};
 
 // affichage des résultats des dégâts
 Display.prototype.dmgLog = function (char, target, attack) {
@@ -160,7 +161,7 @@ Display.prototype.dmgLog = function (char, target, attack) {
     // si la cible n'a plus de PV
     if (target.hp <= 0) {
         // vérification du sexe de la cible et affichage lié
-        if (target.gender == 'F') {
+        if (target.gender === 'F') {
             this.timedOutText("results", target.name + " est morte, " + char.name + " a gagné !", 1200);
         } else {
             this.timedOutText("results", target.name + " est mort, " + char.name + " a gagné !", 1200);
@@ -169,7 +170,7 @@ Display.prototype.dmgLog = function (char, target, attack) {
     } else {
         this.timedOutText("fight", 'Il reste ' + target.hp + '/' + target.hpFull + ' PV à ' + target.name, 1200);
     }
-}
+};
 
 // affichage des résultats d'une attaque
 Display.prototype.attackLog = function (char, target, attack) {
@@ -187,15 +188,10 @@ Display.prototype.attackLog = function (char, target, attack) {
     } else {
         this.timedOutText("fight", char.name + " a raté " + target.name + ' (' + attack.hit + ')', 700);
     }
-}
+};
 
 // affichage de la montée en XP
 Display.prototype.lvlLog = function () {
-    // lock des boutons d'attaque
-    el = document.querySelectorAll('#player > input');
-    el.forEach(function (element) {
-        element.disabled = true;
-    });
     // affichage de l'XP gagnée
     this.timedOutText("results", this.player.name + ' a gagné ' + this.monster.xpValue + ' XP', 1500);
     // appel de la méthode de montée de niveau
@@ -204,4 +200,4 @@ Display.prototype.lvlLog = function () {
     this.timedOutText("results", this.player.name + ' est niveau ' + this.player.lvl, 1500);
     // affichage de l'XP actuelle du joueur
     this.timedOutText("results", this.player.name + ' a ' + this.player.xp + '/' + this.player.xpLvl + 'XP', 1500);
-}
+};

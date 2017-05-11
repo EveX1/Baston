@@ -13,7 +13,7 @@ Form.prototype.createForm = function() {
     var form = document.createElement("form");
     form.setAttribute("method", "post");
     var fieldset1 = document.createElement("fieldset");
-    fieldset1.setAttribute("id", "fieldset1")
+    fieldset1.setAttribute("id", "fieldset1");
     var legend1 = document.createElement("legend");
     legend1.innerText = "Création de personnage";
 
@@ -42,7 +42,7 @@ Form.prototype.createForm = function() {
 
     // partie attributs du personnage
     var fieldset2 = document.createElement("fieldset");
-    fieldset2.setAttribute("id", "attributes")
+    fieldset2.setAttribute("id", "attributes");
     var legend2 = document.createElement("legend");
     legend2.innerText = "Attributs";
 
@@ -60,7 +60,7 @@ Form.prototype.createForm = function() {
     document.querySelector('body').insertBefore(form, document.querySelector('script'));
     document.querySelector('form').appendChild(fieldset1);
 
-    this.multiAppend("#fieldset1", [legend1, labelName, inputName, br, labelGender, radioGenderM, radioGenderF, fieldset2])
+    this.multiAppend("#fieldset1", [legend1, labelName, inputName, br, labelGender, radioGenderM, radioGenderF, fieldset2]);
 
     document.querySelector('#attributes').appendChild(legend2);
     document.querySelector('#attributes').appendChild(div);
@@ -72,22 +72,22 @@ Form.prototype.createForm = function() {
     this.createInput("agi", "Agilité: ");
     document.querySelector('form').appendChild(submit);
     this.setAttributes();
-}
+};
 
 // function permettant des multiple appendChild avec un tableau d'éléments
 Form.prototype.multiAppend = function(element, childs) {
     childs.forEach(function(child) {
         document.querySelector(element).appendChild(child);
     }, this);
-}
+};
 
 //création et insertion des champs d'attributs
 Form.prototype.createInput = function(att, labelText) {
     var div = document.createElement("div");
-    div.setAttribute("id", "div" + att)
+    div.setAttribute("id", "div" + att);
     var input = document.createElement('input');
     var label = document.createElement("label");
-    label.setAttribute("for", att)
+    label.setAttribute("for", att);
     label.innerText = labelText;
     input.setAttribute("id", att);
     input.setAttribute("type", "number");
@@ -97,7 +97,7 @@ Form.prototype.createInput = function(att, labelText) {
     document.querySelector("#div" + att).appendChild(label);
     document.querySelector("#div" + att).appendChild(input);
     input.oninput = this.setAttributes.bind(this);
-}
+};
 
 // fonction de calcul et de limite des attributs
 Form.prototype.setAttributes = function() {
@@ -121,4 +121,4 @@ Form.prototype.setAttributes = function() {
         agi.setAttribute("max", clamp(agi.value + this.points, 10, 1));
     }
     document.querySelector('#attPoints').innerText = this.points;
-}
+};
