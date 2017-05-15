@@ -6,7 +6,7 @@ function Display(player, monster, cell) {
 }
 
 // préparation des div HTML de l'affichage
-Display.prototype.skelet = function () {
+Display.prototype.skelet = function() {
     var div = document.createElement("div");
     div.setAttribute("class", "flex-container")
 
@@ -31,12 +31,12 @@ Display.prototype.skelet = function () {
 }
 
 // construction des boutons d'attaques (skills)
-Display.prototype.inputAttack = function (cell) {
+Display.prototype.inputAttack = function(cell) {
     var divPlayerSkills = document.createElement("div");
     divPlayerSkills.setAttribute("id", "skills");
     document.querySelector('#player').appendChild(divPlayerSkills);
     // pour chaque skill attribué à un personnage
-    Object.values(this.player.skills).forEach(function (skill) {
+    Object.values(this.player.skills).forEach(function(skill) {
         // on instancie le skill pour récupérer certaines de ses valeurs
         var skillInstance = new skill(this.player, this.monster);
         // création du bouton de déclenchement
@@ -47,7 +47,7 @@ Display.prototype.inputAttack = function (cell) {
         // attribution du nom de l'instance à la value du boutton
         input.value = skillInstance.name;
         // création d'un eventListener "onclick"
-        input.addEventListener('click', function () {
+        input.addEventListener('click', function() {
             // on ré-instancie l'objet afin de redeterminer les valeurs à chaque attaque
             skillInstance = new skill(this.player, this.monster);
             // on envoie la nouvelle instance à la méthode de Cell
@@ -58,13 +58,13 @@ Display.prototype.inputAttack = function (cell) {
 }
 
 // désactivation des boutons liés aux compétences
-Display.prototype.disableInputs = function (elemId, timer = 0) {
+Display.prototype.disableInputs = function(elemId, timer = 0) {
     el = document.querySelectorAll('#' + elemId + ' > input');
-    el.forEach(function (input) {
+    el.forEach(function(input) {
         input.disabled = true;
         // input.style.display = "none";
         if (timer > 0) {
-            disableTimer = setTimeout(function () {
+            disableTimer = setTimeout(function() {
                 input.disabled = false;
                 // input.style.display = "initial";
             }, timer)
@@ -78,7 +78,7 @@ Display.prototype.disableInputs = function (elemId, timer = 0) {
 }
 
 // afficher une barre de progression
-Display.prototype.loadBar = function (elemId, timer) {
+Display.prototype.loadBar = function(elemId, timer) {
     var elem = document.getElementById(elemId);
     var bar = document.createElement("div");
     bar.setAttribute("id", "bar");
@@ -102,10 +102,10 @@ Display.prototype.loadBar = function (elemId, timer) {
 }
 
 // affichage de textes provenants d'un tableau
-Display.prototype.normalText = function (targetId, array, newId) {
+Display.prototype.normalText = function(targetId, array, newId) {
     var el = document.createElement("div");
     el.setAttribute("id", newId);
-    array.forEach(function (text) {
+    array.forEach(function(text) {
         el.innerHTML += createTextVersion(text);
         el.innerHTML += "<br>";
     });
@@ -117,21 +117,26 @@ Display.prototype.normalText = function (targetId, array, newId) {
 }
 
 // affichage d'un texte avec un timer paramétrable
-Display.prototype.timedOutText = function (id, text, timer = 500) {
+Display.prototype.timedOutText = function(id, text, timer = 500) {
     var el = document.querySelector("#" + id)
-    var timer = setTimeout(function () {
+    var timer = setTimeout(function() {
         el.innerHTML += createTextVersion(text);
         el.innerHTML += "<br>";
     }, timer)
 }
 
 // affichage du début de combat
-Display.prototype.startLog = function () {
+Display.prototype.startLog = function() {
     this.timedOutText("fight", "Vous arrivez dans " + this.cell.desc, 200);
 }
 
+// affichage des PV en cours
+Display.prototype.HpLog = function(id, hp) {
+    document.querySelector("#" + id).innerText = hp;
+}
+
 // affichage des statistiques des combattants
-Display.prototype.statsLog = function () {
+Display.prototype.statsLog = function() {
     this.normalText("player", [
         // affiche le niveau du joueur
         this.player.name + ' est de niveau ' + this.player.lvl,
@@ -149,12 +154,12 @@ Display.prototype.statsLog = function () {
 }
 
 // affichage de l'initiative au début de chaque tour
-Display.prototype.initLog = function (initPlayer) {
+Display.prototype.initLog = function(initPlayer) {
     this.timedOutText("fight", this.player.name + ' a une initiative de ' + initPlayer + ' et ' + this.monster.name + ' de ' + this.monster.init, 300);
 }
 
 // affichage des résultats des dégâts
-Display.prototype.dmgLog = function (char, target, attack) {
+Display.prototype.dmgLog = function(char, target, attack) {
     // affichage des dégats infligés
     this.timedOutText("fight", char.name + ' a infligé ' + attack.dmgDone + ' points de dégats à ' + target.name, 900);
     // si la cible n'a plus de PV
@@ -172,7 +177,7 @@ Display.prototype.dmgLog = function (char, target, attack) {
 }
 
 // affichage des résultats d'une attaque
-Display.prototype.attackLog = function (char, target, attack) {
+Display.prototype.attackLog = function(char, target, attack) {
     // si l'attaque touche
     if (attack.hit > 0) {
         // affichage de la précision
@@ -183,17 +188,17 @@ Display.prototype.attackLog = function (char, target, attack) {
         }
         // appel de la function d'affichage des dégâts
         this.dmgLog(char, target, attack)
-        // si l'attaque ne touche pas
+            // si l'attaque ne touche pas
     } else {
         this.timedOutText("fight", char.name + " a raté " + target.name + ' (' + attack.hit + ')', 700);
     }
 }
 
 // affichage de la montée en XP
-Display.prototype.lvlLog = function () {
+Display.prototype.lvlLog = function() {
     // lock des boutons d'attaque
     el = document.querySelectorAll('#player > input');
-    el.forEach(function (element) {
+    el.forEach(function(element) {
         element.disabled = true;
     });
     // affichage de l'XP gagnée

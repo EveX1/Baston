@@ -31,14 +31,20 @@ Form.prototype.createForm = function() {
     var radioGenderM = document.createElement("input");
     radioGenderM.setAttribute("type", "radio");
     radioGenderM.setAttribute("name", "gender");
+    radioGenderM.setAttribute("id", "M");
     radioGenderM.setAttribute("value", "M");
     radioGenderM.checked = true;
-    radioGenderM.innerHTML = "&nbsp;Homme";
+    var labelGenderM = document.createElement("label");
+    labelGenderM.setAttribute("for", "M");
+    labelGenderM.innerText = "Homme";
     var radioGenderF = document.createElement("input");
     radioGenderF.setAttribute("type", "radio");
     radioGenderF.setAttribute("name", "gender");
+    radioGenderF.setAttribute("id", "F");
     radioGenderF.setAttribute("value", "F");
-    radioGenderF.innerHTML = "&nbsp;Femme";
+    var labelGenderF = document.createElement("label");
+    labelGenderF.setAttribute("for", "F");
+    labelGenderF.innerText = "Femme";
 
     // partie attributs du personnage
     var fieldset2 = document.createElement("fieldset");
@@ -60,7 +66,7 @@ Form.prototype.createForm = function() {
     document.querySelector('body').insertBefore(form, document.querySelector('script'));
     document.querySelector('form').appendChild(fieldset1);
 
-    this.multiAppend("#fieldset1", [legend1, labelName, inputName, br, labelGender, radioGenderM, radioGenderF, fieldset2])
+    this.multiAppend("#fieldset1", [legend1, labelName, inputName, br, labelGender, labelGenderM, radioGenderM, labelGenderF, radioGenderF, fieldset2])
 
     document.querySelector('#attributes').appendChild(legend2);
     document.querySelector('#attributes').appendChild(div);
